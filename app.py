@@ -30,10 +30,11 @@ def index():
     if request.method == 'POST':
         zug_name = request.form['name']
         speeches = Speeches.query.filter(Speeches.pdf.contains(zug_name)).order_by(Speeches.date).limit(10).all()
-        textt = ""
+        textt = "No results"
         for speech in speeches:
-            textt.join(speech.pdf)        
+            textt = textt + speech.pdf
         wordcloud = WordCloud().generate(textt)
+        wordcloud.to_file("static/images/wordcloud.png")
         return render_template('index.html', speeches = speeches)
         
 
