@@ -14,3 +14,5 @@ sqlalchemy==1.4.21
 werkzeug==1.0.1
 wincertstore==0.2
 zipp==3.5.0
+nltk==3.6.2
+matplotlib==3.3.4
