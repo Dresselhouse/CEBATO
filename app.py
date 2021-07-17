@@ -5,6 +5,10 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.utils import redirect
 
+import os
+import glob
+from random import randint
+
 import matplotlib.pyplot as plt
 import nltk
 from wordcloud import WordCloud
@@ -25,6 +29,11 @@ class Speeches(db.Model):
     def __repr__(self):
         return '<Speech %r>' % self.id
 
+def random_with_N_digits(n):
+    range_start = 10**(n-1)
+    range_end = (10**n)-1
+    return randint(range_start, range_end)
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
@@ -33,9 +42,19 @@ def index():
         textt = "No results"
         for speech in speeches:
             textt = textt + speech.pdf
+        #get all wordcloud images and delete them exept the default one
+        all_wordclouds = glob.glob("static/images/wordcloud*")
+        print(all_wordclouds)
+        for path in all_wordclouds:
+            if path == "static/images/wordcloud.png":
+               continue
+            os.remove(path)
+
         wordcloud = WordCloud().generate(textt)
-        wordcloud.to_file("static/images/wordcloud.png")
-        return render_template('index.html', speeches = speeches)
+        random_path = random_with_N_digits(5)
+        new_wordcloud_path = "static/images/wordcloud" + str(random_path) + ".png"
+        wordcloud.to_file(new_wordcloud_path)        
+        return render_template('index.html', speeches = speeches, wordcloud_path = new_wordcloud_path)
         
 
         
