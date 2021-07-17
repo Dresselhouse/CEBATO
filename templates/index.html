@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>CEBATO</title>
+{% endblock %}
+
+{% block body %}
+<div class="inhalt">
+    <form action="/" method="POST">
+        <input type="text" name="name" id="name">
+        <input type="submit" value="Upturnen">
+    </form>
+    
+    <table>
+        {% for speech in speeches %}
+            <tr>
+                <td>{{ speech.country }}</td>                
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}
