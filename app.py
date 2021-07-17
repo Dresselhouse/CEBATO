@@ -7,7 +7,7 @@ from werkzeug.utils import redirect
 
 import matplotlib.pyplot as plt
 import nltk
-from wordloud import WordCloud
+from wordcloud import WordCloud
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bis_cb_speches_db_20_21.db'
