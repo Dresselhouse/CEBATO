@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
 :root {
-    --primary-color: #000695;
+    --primary-color: #1d22be;
     --off-white: #dadada;
     --grey-BG: #181818;
+    font-size: 16px;
 }
 
 * {
@@ -10,7 +13,7 @@
 }
 
 body {
-    font-family: sans-serif;
+    font-family: sans-serif;    
 }
 
 .navbar {
@@ -31,10 +34,11 @@ body {
 
     .logo {
         text-decoration: none;
+        font-family: 'Montserrat';
         font-weight: 400;
         color: rgb(255, 255, 255);
-        font-size: 1rem;
-        letter-spacing: .3rem;        
+        font-size: 1.2rem;
+        letter-spacing: .6rem;        
     }
 
     .menu-btn {
@@ -64,6 +68,7 @@ body {
     text-decoration: none;
     letter-spacing: 2px;
     font-size: .9rem;
+    font-family: 'Montserrat';
 
     &:hover {
         color: var(--primary-color);
@@ -80,6 +85,7 @@ body {
     width: 25px;
     height: 3px;
     background-color: var(--off-white);
+    opacity: .7;
     margin: 5px;
     transition: all 0.3s ease;
 }
@@ -162,4 +168,112 @@ body {
 
 .toggle .line3 {
     transform: rotate(-45deg) translateY(-12px);
+}
+
+
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: calc(100vh - 9rem);
+    background-color: black;
+    padding: 6rem 3rem 3rem 3rem;
+
+    .hero-texte {
+        color: var(--off-white);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h1 {
+            font-family: 'Montserrat';
+            margin-bottom: 3rem;
+            margin-top: 2rem;
+            font-weight: 500;
+            font-size: 1.8rem;
+        }
+
+        .hero-absatz {
+            margin-bottom: 2rem;
+            opacity: .8;            
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--off-white);
+
+            p {
+                background-color: var(--primary-color);
+                padding: 8px 16px;
+                width: fit-content;
+                border-radius: 5px;    
+                font-family: 'Montserrat';
+                font-weight: 500;
+                color: white;
+            }
+        }
+    }
+}
+
+
+
+
+
+//Tablet Mode
+@media screen and (min-width:740px) {
+
+    .navbar {
+        width: 80vw;
+        padding-left: 10vw;
+        padding-right: 10vw;
+        justify-content: space-between;
+    }
+
+    .hero-section {
+        align-items: flex-start;
+        text-align: start;
+        padding: 6rem 10% 3rem 10%;
+
+        .hero-texte {
+            align-items: flex-start;
+            text-align: start;
+            width: 80%;
+
+            h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero-absatz {
+                width: 70%;
+            }
+        }
+    }
+}
+
+
+//Desktop Mode
+@media screen and (min-width:1300px) {
+
+    .hero-section {
+        justify-content: center;
+        padding-top: 3rem;
+        height: calc(100vh - 6rem);
+
+        .hero-texte {
+            width: 60%;
+
+            h1 {
+                font-size: 3.4rem;
+                margin-top: -20%;
+            }
+
+            .hero-absatz {
+                font-size: 1.2rem;
+            }
+
+        }
+
+    }
+
 }
