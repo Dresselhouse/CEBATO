@@ -8,6 +8,19 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+    <nav class="navbar" id="navbar-container"><a class="logo" href="#">CEBATO</a>
+        <ul class="primary-nav">
+            <li><a href="/#keywordsearch">Keyword Search</a></li>
+            <li><a href="/topicmodeling">Topic Modeling <span>beta</span></a></li>
+            <li><a class="nav-cta" href="/tour">Show me</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
     {% block body %}{% endblock %}
+    <script type=text/javascript src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

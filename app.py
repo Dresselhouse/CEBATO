@@ -39,7 +39,7 @@ def index():
     if request.method == 'POST':
         zug_name = request.form['name']
         speeches = Speeches.query.filter(Speeches.pdf.contains(zug_name)).order_by(Speeches.date).limit(10).all()
-        textt = "No results"
+        textt = "empty empty empty results"
         for speech in speeches:
             textt = textt + speech.pdf
         #get all wordcloud images and delete them exept the default one
