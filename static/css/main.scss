@@ -33,13 +33,8 @@ body {
         text-decoration: none;
         font-weight: 400;
         color: rgb(255, 255, 255);
-        font-size: 1em;
-        letter-spacing: .3em;
-
-        span {
-            color: var(--primary-color);
-        }
-        
+        font-size: 1rem;
+        letter-spacing: .3rem;        
     }
 
     .menu-btn {
@@ -48,7 +43,7 @@ body {
 
     .mobile-menu-exit {
         float: right;
-        margin: .5em;
+        margin: .5rem;
         cursor: pointer;
     }    
 }
@@ -68,10 +63,16 @@ body {
     color: var(--off-white);
     text-decoration: none;
     letter-spacing: 2px;
-    font-size: 1em;
+    font-size: 1rem;
 
     &:hover {
         color: var(--primary-color);
+    }
+
+    span {
+        font-size: 0.7rem;
+        opacity: 0.6;
+        
     }
 }
 
@@ -110,7 +111,7 @@ body {
         width: 50%;
         transform: translateX(100%);
         transition: transform 0.5s ease-in;      
-        padding-bottom: 5em;       
+        padding-bottom: 5rem;       
 
         &::before{
             content: '';
