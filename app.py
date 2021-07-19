@@ -37,8 +37,12 @@ def random_with_N_digits(n):
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        zug_name = request.form['name']
-        speeches = Speeches.query.filter(Speeches.pdf.contains(zug_name)).order_by(Speeches.date).limit(10).all()
+        keyword = request.form['keyword']
+        area = request.form['area']
+        startdate = request.form['startdate']
+        enddate = request.form['enddate']
+        print(keyword, area, startdate, enddate)
+        speeches = Speeches.query.filter(Speeches.pdf.contains(keyword)).order_by(Speeches.date).limit(10).all()
         textt = "empty empty empty results"
         for speech in speeches:
             textt = textt + speech.pdf

@@ -3,6 +3,7 @@
   --primary-color: #1d22be;
   --off-white: #dadada;
   --grey-BG: #181818;
+  --grey-btn: #adadad;
   font-size: 16px;
 }
 
@@ -264,6 +265,55 @@ body {
 .hero-section .hero-texte a p:hover {
   color: black;
   background-color: var(--off-white);
+}
+
+.keyword-search-section {
+  background-color: var(--grey-BG);
+  padding: 3rem 10%;
+  color: var(--off-white);
+}
+
+.keyword-search-section .kws-params-card {
+  padding: 2em;
+  margin: 1em 0;
+  background-color: black;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.keyword-search-section .kws-params-card .kws-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+}
+
+.keyword-search-section .kws-params-card .kws-form .kws-label-input {
+  width: 100%;
+  margin: .8rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.keyword-search-section .kws-params-card .kws-form .kws-label-input input, .keyword-search-section .kws-params-card .kws-form .kws-label-input select {
+  background-color: var(--grey-btn);
+  border: none;
+  border-radius: 2px;
 }
 
 .data-section {

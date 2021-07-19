@@ -26,7 +26,53 @@
     </div>
 </section>
 
-<div class="inhalt">
+<section class="keyword-search-section">
+    <div class="kws-container">
+        <div class="kws-params-card">
+            <form class="kws-form" action="/" method="POST">
+                <div>
+                    <div class="kws-label-input">
+                        <label for="keyword">Keyword:</label>
+                        <input type="text" name="keyword" id="keyword">
+                    </div>
+                    <div class="kws-label-input">
+                        <label for="area">Area:</label>
+                        <select name="area" id="area">
+                            <option value="all">All</option>
+                            <option value="europe">Europe</option>
+                            <option value="us">US</option>
+                            <option value="abbensen">Abbensen</option>
+                        </select>
+                    </div>
+
+
+                </div>
+                <div>
+                    <div class="kws-label-input">
+                        <label for="startdate">From:</label>
+                        <input type="date" name="startdate" id="startdate">
+                    </div>
+                    <div class="kws-label-input">
+                        <label for="enddate">Until:</label>
+                        <input type="date" name="enddate" id="enddate">
+                    </div>
+                </div>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <table>
+            {% for speech in speeches %}
+                <tr>
+                    <td>{{ speech.country }}</td>                
+                </tr>
+            {% endfor %}
+            <img src="/{{ wordcloud_path }}" alt="wordcloud">
+            
+        </table>
+    </div>
+</section>
+
+<!-- <div class="inhalt">
     <form action="/" method="POST">
         <input type="text" name="name" id="name">
         <input type="submit" value="Upturnen">
@@ -41,7 +87,7 @@
         <img src="/{{ wordcloud_path }}" alt="wordcloud">
         
     </table>
-</div>
+</div> -->
 
 
 {% endblock %}
