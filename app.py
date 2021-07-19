@@ -76,5 +76,13 @@ def tour():
     else:
         return render_template('tour.html')
 
+@app.route('/impressum', methods=['POST', 'GET'])
+def impressum():
+    if request.method == 'POST':
+        pass
+
+    else:
+        return render_template('impressum.html')
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +8,51 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% block head %}{% endblock %}
 </head>
+
 <body>
 
     {% block body %}{% endblock %}
+
+    <section class="data-section">
+        <div class="data-card">
+            <div class="data-head">
+                <h2 class="data-headline">Data Source</h2>
+                <img class="bis-logo" src="{{ url_for('static', filename='images/bis.svg') }}" alt="BIS Logo">
+            </div>
+            <div class="data-text">
+                <p>These speeches were published by the Bank for International Settlements (BIS), an international
+                    financial Institution owned by central banks.</p>
+                <p>The BIS is a forum for discussion, policy analysis and knowledge-sharing among central banks and
+                    within the international financial and supervisory community.</p>
+                <p>Since 1997 over 17.000 speeches by central bankers all over the world have been published. </p>
+                <p>The speches can be browsed and downloaded at </p>
+                <p><a href="https://www.bis.org/list/cbspeeches/">https://www.bis.org/list/cbspeeches/</a></p>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="about-card">
+            <div class="about-head">
+                <h2 class="about-headline">About</h2>
+                <img class="about-logo" src="{{ url_for('static', filename='images/cebato.svg') }}" alt="Cebato Logo">
+            </div>
+            <div class="about-text">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer-section">
+        <a href="#">Back to top</a>
+    </section>
+
     <script type=text/javascript src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
+
 </html>

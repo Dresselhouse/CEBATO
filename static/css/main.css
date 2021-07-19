@@ -261,6 +261,114 @@ body {
   color: white;
 }
 
+.hero-section .hero-texte a p:hover {
+  color: black;
+  background-color: var(--off-white);
+}
+
+.data-section {
+  background-color: var(--grey-BG);
+  padding: 3rem 10%;
+  color: var(--off-white);
+}
+
+.data-section .data-card {
+  padding: 2em;
+  margin: 1em 0;
+  background-color: black;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+}
+
+.data-section .data-card .data-head {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+}
+
+.data-section .data-card .data-head h2 {
+  font-family: 'Montserrat';
+}
+
+.data-section .data-card .data-head img {
+  width: 50%;
+  margin: 2rem auto;
+}
+
+.data-section .data-card .data-text p {
+  margin-top: 1rem;
+  line-height: 1.2rem;
+}
+
+.data-section .data-card .data-text a {
+  color: var(--off-white);
+}
+
+.about-section {
+  background-color: var(--grey-BG);
+  color: var(--off-white);
+  padding: 1rem 10% 3rem 10%;
+}
+
+.about-section .about-card {
+  padding: 2em;
+  margin: 1em 0;
+  background-color: black;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+}
+
+.about-section .about-card .about-head {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.about-section .about-card .about-head h2 {
+  font-family: 'Montserrat';
+}
+
+.about-section .about-card .about-head img {
+  width: 80%;
+  margin: 2rem auto;
+}
+
+.about-section .about-card .about-text {
+  line-height: 1.2rem;
+}
+
+.footer-section {
+  background-color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: var(--off-white);
+  padding: 1rem 10%;
+}
+
+.footer-section a {
+  color: var(--off-white);
+}
+
 @media screen and (min-width: 740px) {
   .navbar {
     width: 80vw;
@@ -290,6 +398,39 @@ body {
   .hero-section .hero-texte .hero-absatz {
     width: 70%;
   }
+  .data-section .data-card {
+    padding: 3rem;
+  }
+  .data-section .data-card .data-head {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-align: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  .data-section .data-card .data-head h2 {
+    font-size: 2.4rem;
+  }
+  .data-section .data-card .data-head .bis-logo {
+    max-width: 150px;
+    margin: 0;
+  }
+  .about-section .about-card {
+    padding: 3rem;
+  }
+  .about-section h2 {
+    font-size: 2.4rem;
+  }
+  .about-section img {
+    max-width: 300px;
+  }
 }
 
 @media screen and (min-width: 1300px) {
@@ -309,6 +450,37 @@ body {
   }
   .hero-section .hero-texte .hero-absatz {
     font-size: 1.2rem;
+  }
+  .data-section .data-card {
+    padding: 3rem 6rem;
+  }
+  .data-section p {
+    font-size: 1.2rem;
+    max-width: 80ch;
+  }
+  .about-section .about-card {
+    padding: 3rem 6rem;
+  }
+  .about-section .about-card .about-head {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-align: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  .about-section .about-card .about-head .about-logo {
+    margin: 0;
+  }
+  .about-section p {
+    font-size: 1.2rem;
+    max-width: 80ch;
   }
 }
 /*# sourceMappingURL=main.css.map */

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>CEBATO Impressum</title>
+{% endblock %}
+
+{% block body %}
+<nav class="navbar" id="navbar-container"><a class="logo" href="../">CEBATO</a>
+    <ul class="primary-nav">
+        <li><a href="../#keywordsearch">Keyword Search</a></li>
+        <li><a href="../topicmodeling">Topic Modeling <span>beta</span></a></li>
+        <li><a class="nav-cta" href="/tour">Show me</a></li>
+    </ul>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+</nav>
+<div class="inhalt">
+    <form action="/" method="POST">
+        <input type="text" name="name" id="name">
+        <input type="submit" value="Upturnen">
+    </form>
+    
+    <table>
+        {% for speech in speeches %}
+            <tr>
+                <td>{{ speech.country }}</td>                
+            </tr>
+        {% endfor %}
+        <img src="/{{ wordcloud_path }}" alt="wordcloud">
+        
+    </table>
+</div>
+
+
+{% endblock %}

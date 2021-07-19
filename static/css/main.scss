@@ -211,12 +211,111 @@ body {
                 font-family: 'Montserrat';
                 font-weight: 500;
                 color: white;
+
+                &:hover {
+                    color: black;
+                    background-color: var(--off-white);
+                }
             }
         }
     }
 }
 
+.data-section {
+    background-color: var(--grey-BG);
+    padding: 3rem 10%;
+    color: var(--off-white);
 
+    .data-card {
+        padding: 2em;
+        margin: 1em 0;
+        background-color: black;
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+
+        .data-head {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+
+            h2 {
+                font-family: 'Montserrat';
+            }
+
+            img {
+                width: 50%;
+                margin: 2rem auto;
+            }            
+        }
+
+        .data-text {
+
+            p {
+                margin-top: 1rem;
+                line-height: 1.2rem;
+            }
+
+            a {
+                color: var(--off-white);
+                
+            }
+
+        }
+
+    }
+
+}
+
+.about-section {
+    background-color: var(--grey-BG);
+    color: var(--off-white);
+    padding: 1rem 10% 3rem 10%;
+
+
+    .about-card {
+        padding: 2em;
+        margin: 1em 0;
+        background-color: black;
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+        
+        .about-head {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 1rem;
+               
+            
+            h2 {
+                font-family: 'Montserrat';
+            }
+
+            img {
+                width: 80%;
+                margin: 2rem auto;
+            }  
+        }
+
+        .about-text {
+            line-height: 1.2rem;
+        }
+
+    }
+
+}
+
+.footer-section {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--off-white);
+    padding: 1rem 10%;
+
+    a {
+        color: var(--off-white);
+    }
+}
 
 
 
@@ -249,6 +348,50 @@ body {
             }
         }
     }
+
+    .data-section {
+
+        .data-card {
+            padding: 3rem;
+
+            .data-head {
+                flex-direction: row;
+                align-items: center;
+                text-align: center;
+                justify-content: space-between;
+                margin-bottom: 2rem;
+
+                h2 {
+                    font-size: 2.4rem;                    
+                }
+
+                .bis-logo {
+                    max-width: 150px;
+                    margin: 0;
+                }
+
+            }
+            
+
+        }
+
+
+    }
+
+    .about-section {
+
+        .about-card {
+            padding: 3rem;
+        }
+        
+        h2 {
+            font-size: 2.4rem;
+        }
+
+        img {
+            max-width: 300px;
+        }
+    }
 }
 
 
@@ -272,6 +415,46 @@ body {
                 font-size: 1.2rem;
             }
 
+        }
+
+    }
+
+
+    .data-section {
+
+        .data-card {
+            padding: 3rem 6rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 80ch;
+        }
+    }
+
+    .about-section {
+
+        .about-card {
+            padding: 3rem 6rem;
+
+            .about-head {
+                flex-direction: row;
+                align-items: center;
+                text-align: center;
+                justify-content: space-between;
+                margin-bottom: 2rem;
+
+                .about-logo {
+                    margin: 0;
+                }
+
+            }
+
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 80ch;
         }
 
     }
