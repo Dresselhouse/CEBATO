@@ -5,12 +5,15 @@
     --off-white: #dadada;
     --grey-BG: #181818;
     --grey-btn: #adadad;
+    --card-odd: rgba(255, 255, 255, 0.22);
+    --card-even: rgba(255, 255, 255, 0.1);
     font-size: 16px;
 }
 
 * {
     margin: 0;
     padding: 0;
+    
 }
 
 body {
@@ -234,12 +237,24 @@ body {
         border-radius: 5px;
         box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+            margin-bottom: 2rem;
+            font-family: 'Montserrat';
+            text-align: center;
+        }
 
         .kws-form {
             display: flex;
             flex-direction: column;
             width: 100%;
+
+            .kws-parameter-fields {
+                display: flex;
+                flex-direction: column;
+            }
 
             .kws-label-input {
                 width: 100%;
@@ -251,6 +266,108 @@ body {
                     background-color: var(--grey-btn);
                     border: none;
                     border-radius: 2px;
+                    width: 15ch;
+                    max-width: 15ch;
+                }
+
+            }
+
+            .kws-btn {
+                background-color: var(--grey-btn);
+                margin: 1rem auto 0 auto;
+                padding: 5px 10px;
+                width: fit-content;
+                font-weight: 500;
+                border: none;
+                border-radius: 2px;
+                font-family: 'Montserrat';
+            }
+
+        }
+
+    }
+
+    .kws-results-overview-card {
+        padding: 2em;
+        margin: 1em 0;
+        background-color: black;
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+            font-family: 'Montserrat';
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-family: 'Montserrat';
+            margin-bottom: 1rem;
+        }
+
+        img {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .kws-ro-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .kw-ro-time-map {
+            width: 100%;
+
+            div {
+                width: 100%;
+
+                div {
+                    width: 100%;
+                }
+            }
+        }
+
+        .kws-ro-top-countries {
+            margin-top: 1rem;
+            width: 100%;
+
+            .kws-ro-countries-cards {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 1rem;
+
+                .kws-ro-country-card {
+                    text-align: start;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    width: calc(100% - 1.4rem);
+                    padding: .7rem;
+                    margin: .5rem 0;
+                    border-radius: 2px;
+
+                    h4 {
+                        margin-bottom: 1rem;
+                    }
+
+                }
+
+                .kws-top-country-1 {
+                    background-color: var(--card-odd);
+                }
+
+                .kws-top-country-2 {
+                    background-color: var(--card-even);
+                }
+
+                .kws-top-country-3 {
+                    background-color: var(--card-odd);
                 }
 
             }
@@ -389,6 +506,24 @@ body {
         }
     }
 
+    .keyword-search-section {
+
+        .kws-params-card {
+
+            .kws-form {               
+
+                .kws-parameter-fields {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    
+                    .kws-input-batch {
+                        width: 35%;
+                    }                    
+                }
+            }
+        }
+    }
+
     .data-section {
 
         .data-card {
@@ -435,6 +570,70 @@ body {
 }
 
 
+//Big Tablet Mode
+@media screen and (min-width:900px) {
+
+    .keyword-search-section {
+
+        .kws-results-overview-card {
+
+            .kws-ro-content {
+                width: 100%;
+
+                .kws-ro-table {
+                    display: flex;
+                    width: 100%;
+                    gap: 2rem;
+                    justify-content: space-between;
+                    align-items: stretch;
+                    
+                    .kws-ro-time-map {                        
+                        width: 100%;                        
+
+                        .kws-map-img {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .kws-ro-top-countries {
+                        margin-top: 0;
+                        display: flex;
+                        flex-direction: column;
+
+
+                        .kws-top-countries-headline {
+                            margin-top: 0;
+                        }
+
+                        .kws-ro-countries-cards {
+                            margin-top: 0;
+                            width: 100%;
+                            height: 100%;
+                            //align-items: stretch;
+                            
+                            
+                            .kws-ro-country-card {
+                                height: 100000%;
+                                
+                            }
+
+                            .kws-top-country-1 {
+                                margin-top: 0;
+                            }
+                        }
+                    }
+                    
+
+
+                }
+            }
+        }
+
+    }
+
+}
+
+
 //Desktop Mode
 @media screen and (min-width:1300px) {
 
@@ -459,6 +658,11 @@ body {
 
     }
 
+    .keyword-search-section {
+
+        //Upturnen
+
+    }
 
     .data-section {
 

@@ -41,7 +41,6 @@ def index():
         area = request.form['area']
         startdate = request.form['startdate']
         enddate = request.form['enddate']
-        print(keyword, area, startdate, enddate)
         speeches = Speeches.query.filter(Speeches.pdf.contains(keyword)).order_by(Speeches.date).limit(10).all()
         textt = "empty empty empty results"
         for speech in speeches:
@@ -57,7 +56,11 @@ def index():
         random_path = random_with_N_digits(5)
         new_wordcloud_path = "static/images/wordcloud" + str(random_path) + ".png"
         wordcloud.to_file(new_wordcloud_path)
-        return render_template('index.html', speeches = speeches, wordcloud_path = new_wordcloud_path)
+
+        countries = [['Germany', 100, 20, 60], ['France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
+        img_paths = [new_wordcloud_path, new_wordcloud_path, new_wordcloud_path]
+
+        return render_template('index.html', speeches = speeches, top_countries = countries, img_paths = img_paths)
         
     else:
         speeches = Speeches.query.order_by(Speeches.date).limit(10).all()

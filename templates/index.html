@@ -29,41 +29,82 @@
 <section class="keyword-search-section">
     <div class="kws-container">
         <div class="kws-params-card">
+            <h2 class="kws-headline">Search Parameters</h2>
             <form class="kws-form" action="/" method="POST">
-                <div>
-                    <div class="kws-label-input">
-                        <label for="keyword">Keyword:</label>
-                        <input type="text" name="keyword" id="keyword">
+                <div class="kws-parameter-fields">
+                    <div class="kws-input-batch">
+                        <div class="kws-label-input">
+                            <label for="keyword">Keyword:</label>
+                            <input type="text" autocomplete="off" name="keyword" id="keyword">
+                        </div>
+                        <div class="kws-label-input">
+                            <label for="area">Area:</label>
+                            <select name="area" id="area">
+                                <option value="all">All</option>
+                                <option disabled>------</option>
+                                <option value="europe">Europe</option>
+                                <option value="us">US</option>
+                                <option disabled>------</option>
+                                <option value="abbensen">Abbensen</option>
+                            </select>
+                        </div>
+    
+    
                     </div>
-                    <div class="kws-label-input">
-                        <label for="area">Area:</label>
-                        <select name="area" id="area">
-                            <option value="all">All</option>
-                            <option value="europe">Europe</option>
-                            <option value="us">US</option>
-                            <option value="abbensen">Abbensen</option>
-                        </select>
+                    <div class="kws-input-batch">
+                        <div class="kws-label-input">
+                            <label for="startdate">From:</label>
+                            <input type="date" name="startdate" id="startdate">
+                        </div>
+                        <div class="kws-label-input">
+                            <label for="enddate">Until:</label>
+                            <input type="date" name="enddate" id="enddate">
+                        </div>
                     </div>
-
-
                 </div>
-                <div>
-                    <div class="kws-label-input">
-                        <label for="startdate">From:</label>
-                        <input type="date" name="startdate" id="startdate">
-                    </div>
-                    <div class="kws-label-input">
-                        <label for="enddate">Until:</label>
-                        <input type="date" name="enddate" id="enddate">
-                    </div>
-                </div>
-                <input type="submit" value="Search">
+                <input class="kws-btn" type="submit" value="Search">
             </form>
         </div>
+
+        <div class="kws-results-overview-card">
+            <h2>Results - Overview</h2>
+            <div class="kws-ro-content">
+                <div class="kws-ro-wordcloud">
+                    <h3>Wordcloud</h3>
+                    <img src="/{{ img_paths[0] }}" alt="wordcloud">
+                </div>
+                <div class="kws-ro-table">
+                    <div class="kws-ro-time-map">
+                        <div class="kws-ro-timeline">
+                            <h3>Timeline of usage</h3>
+                            <img src="/{{ img_paths[1] }}" alt="timeline">
+                        </div>
+                        <div class="kws-ro-map">
+                            <h3>Map of usage</h3>
+                            <img class="kws-map-img" src="/{{ img_paths[2] }}" alt="timeline">
+                        </div>
+                    </div>
+                    <div class="kws-ro-top-countries">
+                        <h3 class="kws-top-countries-headline">Top 3 Countries/Areas</h3>
+                        <div class="kws-ro-countries-cards">
+                            {% for country in top_countries %}
+                                <div class="kws-ro-country-card kws-top-country-{{ loop.index }}">
+                                    <h4>{{ loop.index }}. {{ country[0] }}</h4>
+                                    <p>{{ country[1] }} total mentions</p>
+                                    <p>in {{ country[2] }} speeches</p>
+                                    <p>{{ country[3] }}% of speeches mention it</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <table>
             {% for speech in speeches %}
                 <tr>
-                    <td>{{ speech.country }}</td>                
+                    <td>{{ speech.country }}</td>
                 </tr>
             {% endfor %}
             <img src="/{{ wordcloud_path }}" alt="wordcloud">
