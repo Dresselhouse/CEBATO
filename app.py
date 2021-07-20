@@ -8,6 +8,7 @@ from werkzeug.utils import redirect
 import os
 import glob
 from random import randint
+import math
 
 import matplotlib.pyplot as plt
 import nltk
@@ -17,6 +18,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bis_cb_speches_db_20_21.db'
 db = SQLAlchemy(app)
 
+
 class Speeches(db.Model):
     id = db.Column(db.String, primary_key=True)
     date = db.Column(db.Integer)
@@ -24,15 +26,46 @@ class Speeches(db.Model):
     country = db.Column(db.String)
     title = db.Column(db.String)
     pdf = db.Column(db.String)
-    
 
     def __repr__(self):
         return '<Speech %r>' % self.id
+
 
 def random_with_N_digits(n):
     range_start = 10**(n-1)
     range_end = (10**n)-1
     return randint(range_start, range_end)
+
+
+def pagination(speeches):
+    speeches_list = []
+    print()
+    print(math.ceil(len(speeches)/5))
+    for i in range(math.ceil(len(speeches)/5)):
+        ifive = i*5
+        speeches_list.append(speeches[ifive:ifive+5])
+    return speeches_list
+
+
+def delete_old_wordclouds():
+    all_wordclouds = glob.glob("static/images/wordcloud*")
+    for path in all_wordclouds:
+        os.remove(path)
+
+
+def create_new_wordCloud(speeches):
+
+    delete_old_wordclouds()
+    textt = "empty empty empty results"
+    for speech in speeches:
+        textt = textt + speech.pdf
+
+    wordcloud = WordCloud().generate(textt)
+    random_path = random_with_N_digits(5)
+    new_wordcloud_path = "static/images/wordcloud" + str(random_path) + ".png"
+    wordcloud.to_file(new_wordcloud_path)
+    return new_wordcloud_path
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -44,72 +77,42 @@ def index():
         area = request.form['area']
         startdate = request.form['startdate']
         enddate = request.form['enddate']
-        speeches = Speeches.query.filter(Speeches.pdf.contains(keyword)).order_by(Speeches.date).limit(25).all()
-        speeches_list = []
-        for i in range(5):
-            ifive = i*5
-            speeches_list.append(speeches[ifive:ifive+5])
 
-        for speechbatch in speeches_list:
-            for speech in speechbatch:
-                print(speech.country)
-        
-        textt = "empty empty empty results"
-        for speech in speeches:
-            textt = textt + speech.pdf
-        #get all wordcloud images and delete them exept the default one
-        all_wordclouds = glob.glob("static/images/wordcloud*")
-        for path in all_wordclouds:
-            if path == "static/images/wordcloud.png":
-               continue
-            os.remove(path)
+        speeches = Speeches.query.filter(Speeches.pdf.contains(
+            keyword)).order_by(Speeches.date).limit(25).all()
 
-        wordcloud = WordCloud().generate(textt)
-        random_path = random_with_N_digits(5)
-        new_wordcloud_path = "static/images/wordcloud" + str(random_path) + ".png"
-        wordcloud.to_file(new_wordcloud_path)
+        speeches_list = pagination(speeches)
 
-        countries = [['Germany', 100, 20, 60], ['France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
-        img_paths = [new_wordcloud_path, new_wordcloud_path, new_wordcloud_path]
+        new_wordcloud_path = create_new_wordCloud(speeches)
 
-        return render_template('index.html', speeches = speeches_list, top_countries = countries, img_paths = img_paths)
+        countries = [['Germany', 100, 20, 60], [
+            'France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
+        img_paths = [new_wordcloud_path,
+                     new_wordcloud_path, new_wordcloud_path]
 
-
+        return render_template('index.html', speeches=speeches_list, top_countries=countries, img_paths=img_paths)
 
     if request.method == 'GET':
         #####################
         # Normaler Seitenload
         #####################
         speeches = Speeches.query.order_by(Speeches.date).limit(25).all()
-        textt = "empty empty empty results"
-        for speech in speeches:
-            textt = textt + speech.pdf
+        speeches_list = pagination(speeches)
 
-        speeches_list = []
-        for i in range(5):
-            speeches_list.append(speeches[i:i+5])
-        #get all wordcloud images and delete them exept the default one
-        all_wordclouds = glob.glob("static/images/wordcloud*")
-        for path in all_wordclouds:
-            if path == "static/images/wordcloud.png":
-               continue
-            os.remove(path)
+        new_wordcloud_path = create_new_wordCloud(speeches)
 
-        wordcloud = WordCloud().generate(textt)
-        random_path = random_with_N_digits(5)
-        new_wordcloud_path = "static/images/wordcloud" + str(random_path) + ".png"
-        wordcloud.to_file(new_wordcloud_path)
+        countries = [['Germany', 100, 20, 60], [
+            'France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
+        img_paths = [new_wordcloud_path,
+                     new_wordcloud_path, new_wordcloud_path]
 
-        countries = [['Germany', 100, 20, 60], ['France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
-        img_paths = [new_wordcloud_path, new_wordcloud_path, new_wordcloud_path]
+        return render_template('index.html', speeches=speeches_list, top_countries=countries, img_paths=img_paths)
 
-        return render_template('index.html', speeches = speeches_list, top_countries = countries, img_paths = img_paths)
-    
-        
     else:
         speeches = Speeches.query.order_by(Speeches.date).limit(10).all()
-        return render_template('tour.html', speeches = speeches)
-        #return render_template('index.html')
+        return render_template('tour.html', speeches=speeches)
+        # return render_template('index.html')
+
 
 @app.route('/topicmodeling', methods=['POST', 'GET'])
 def topicmodeling():
@@ -119,6 +122,7 @@ def topicmodeling():
     else:
         return render_template('topicmodeling.html')
 
+
 @app.route('/tour', methods=['POST', 'GET'])
 def tour():
     if request.method == 'POST':
@@ -127,6 +131,7 @@ def tour():
     else:
         return render_template('tour.html')
 
+
 @app.route('/impressum', methods=['POST', 'GET'])
 def impressum():
     if request.method == 'POST':
@@ -134,6 +139,7 @@ def impressum():
 
     else:
         return render_template('impressum.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
