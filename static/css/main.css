@@ -356,6 +356,7 @@ body {
 .keyword-search-section .kws-params-card .kws-form .kws-btn:hover {
   background-color: var(--primary-color);
   color: var(--off-white);
+  cursor: pointer;
 }
 
 .keyword-search-section .kws-results-overview-card {
