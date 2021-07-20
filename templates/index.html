@@ -101,11 +101,19 @@
             </div>
         </div>
 
+        <div class="kws-speeches-card">
+            <h2>Speeches: {{ speeches|length * 5 - (5 - speeches[-1]|length) }}</h2>            
+        </div>
+
         <table>
-            {% for speech in speeches %}
+            {% for speechbatch in speeches %}
+                
+                {% for speech in speechbatch %}
+                
                 <tr>
                     <td>{{ speech.country }}</td>
                 </tr>
+                {% endfor %}
             {% endfor %}
             <img src="/{{ wordcloud_path }}" alt="wordcloud">
             

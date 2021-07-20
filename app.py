@@ -47,10 +47,12 @@ def index():
         speeches = Speeches.query.filter(Speeches.pdf.contains(keyword)).order_by(Speeches.date).limit(25).all()
         speeches_list = []
         for i in range(5):
-            speeches_list.append([speeches[i:i+5]])
-        print(speeches_list)
-        print(speeches[0])
-        print(speeches[1])
+            speeches_list.append(speeches[i:i+5])
+
+        for speechbatch in speeches_list:
+            for speech in speechbatch:
+                print(speech.country)
+        
         textt = "empty empty empty results"
         for speech in speeches:
             textt = textt + speech.pdf
@@ -69,7 +71,7 @@ def index():
         countries = [['Germany', 100, 20, 60], ['France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
         img_paths = [new_wordcloud_path, new_wordcloud_path, new_wordcloud_path]
 
-        return render_template('index.html', speeches = speeches, top_countries = countries, img_paths = img_paths)
+        return render_template('index.html', speeches = speeches_list, top_countries = countries, img_paths = img_paths)
 
 
 
@@ -77,10 +79,14 @@ def index():
         #####################
         # Normaler Seitenload
         #####################
-        speeches = Speeches.query.order_by(Speeches.date).limit(10).all()
+        speeches = Speeches.query.order_by(Speeches.date).limit(25).all()
         textt = "empty empty empty results"
         for speech in speeches:
             textt = textt + speech.pdf
+
+        speeches_list = []
+        for i in range(5):
+            speeches_list.append(speeches[i:i+5])
         #get all wordcloud images and delete them exept the default one
         all_wordclouds = glob.glob("static/images/wordcloud*")
         for path in all_wordclouds:
@@ -96,7 +102,7 @@ def index():
         countries = [['Germany', 100, 20, 60], ['France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
         img_paths = [new_wordcloud_path, new_wordcloud_path, new_wordcloud_path]
 
-        return render_template('index.html', speeches = speeches, top_countries = countries, img_paths = img_paths)
+        return render_template('index.html', speeches = speeches_list, top_countries = countries, img_paths = img_paths)
     
         
     else:
