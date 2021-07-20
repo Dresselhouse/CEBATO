@@ -485,6 +485,12 @@ body {
           flex-direction: column;
 }
 
+.keyword-search-section .kws-speeches-card h2 {
+  margin-bottom: 2rem;
+  font-family: 'Montserrat';
+  text-align: center;
+}
+
 .keyword-search-section .kws-speeches-card .kws-speeches-batch-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -796,6 +802,29 @@ body {
   }
   .hero-section .hero-texte .hero-absatz {
     font-size: 1.2rem;
+  }
+  .keyword-search-section {
+    height: 100vh;
+  }
+  .keyword-search-section .kws-container {
+    max-height: 100%;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 50% 50%;
+        grid-template-columns: 50% 50%;
+    -ms-grid-rows: auto 1fr;
+        grid-template-rows: auto 1fr;
+    grid-column-gap: 5%;
+  }
+  .keyword-search-section .kws-container .kws-params-card {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  .keyword-search-section .kws-container .kws-results-overview-card {
+    -ms-grid-row: 1;
+        grid-row-start: 1;
+    grid-row-end: 3;
   }
   .data-section .data-card {
     padding: 3rem 6rem;

@@ -385,6 +385,12 @@ body {
         display: flex;
         flex-direction: column;
 
+        h2 {
+            margin-bottom: 2rem;
+            font-family: 'Montserrat';
+            text-align: center;
+        }
+
         .kws-speeches-batch-container {
             display: flex;
             overflow-x: scroll;
@@ -726,8 +732,25 @@ body {
     }
 
     .keyword-search-section {
+        height: 100vh;
 
-        //Upturnen
+        .kws-container {
+            max-height: 100%;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            grid-template-rows: auto 1fr;
+            grid-column-gap: 5%;
+            
+
+            .kws-params-card {
+                height: fit-content;
+            }
+
+            .kws-results-overview-card {
+                grid-row-start: 1;
+                grid-row-end: 3;
+            }
+        }
 
     }
 
