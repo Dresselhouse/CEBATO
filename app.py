@@ -84,7 +84,7 @@ def create_new_timeline(speeches, keyword):
 
     # after that loop: use Counter on that list
     frequencies = Counter(list_of_dates)
-    print(frequencies)
+    print(frequencies.items)
 
     # there is the data
 
