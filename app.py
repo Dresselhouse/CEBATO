@@ -37,11 +37,18 @@ def random_with_N_digits(n):
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
+        #############
+        # Suchanfrage
+        #############
         keyword = request.form['keyword']
         area = request.form['area']
         startdate = request.form['startdate']
         enddate = request.form['enddate']
-        speeches = Speeches.query.filter(Speeches.pdf.contains(keyword)).order_by(Speeches.date).limit(10).all()
+        speeches = Speeches.query.filter(Speeches.pdf.contains(keyword)).order_by(Speeches.date).limit(25).all()
+        speeches_list = []
+        for i in range(5):
+            speeches_list.append([speeches[i:i+5]])
+        print(speeches_list)
         textt = "empty empty empty results"
         for speech in speeches:
             textt = textt + speech.pdf
@@ -62,7 +69,12 @@ def index():
 
         return render_template('index.html', speeches = speeches, top_countries = countries, img_paths = img_paths)
 
+
+
     if request.method == 'GET':
+        #####################
+        # Normaler Seitenload
+        #####################
         speeches = Speeches.query.order_by(Speeches.date).limit(10).all()
         textt = "empty empty empty results"
         for speech in speeches:
