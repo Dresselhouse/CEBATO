@@ -47,7 +47,7 @@ def index():
         speeches = Speeches.query.filter(Speeches.pdf.contains(keyword)).order_by(Speeches.date).limit(25).all()
         speeches_list = []
         for i in range(5):
-            speeches_list.append([speeches[i:i+5]])
+            speeches_list.append([speeches[(i-1):(i-1)+5]])
         print(speeches_list)
         print(speeches[1])
         textt = "empty empty empty results"
