@@ -803,18 +803,14 @@ body {
   .hero-section .hero-texte .hero-absatz {
     font-size: 1.2rem;
   }
-  .keyword-search-section {
-    height: 100vh;
-  }
   .keyword-search-section .kws-container {
-    max-height: 100%;
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 50% 50%;
-        grid-template-columns: 50% 50%;
+    -ms-grid-columns: 49% 49%;
+        grid-template-columns: 49% 49%;
     -ms-grid-rows: auto 1fr;
         grid-template-rows: auto 1fr;
-    grid-column-gap: 5%;
+    grid-column-gap: 2%;
   }
   .keyword-search-section .kws-container .kws-params-card {
     height: -webkit-fit-content;

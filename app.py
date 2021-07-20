@@ -9,6 +9,7 @@ import os
 import glob
 from random import randint
 import math
+from collections import Counter
 
 import matplotlib.pyplot as plt
 import nltk
@@ -64,13 +65,37 @@ def create_new_wordCloud(speeches):
     wordcloud.to_file(new_wordcloud_path)
     return new_wordcloud_path
 
+
+def delete_old_timelines():
+    all_timelines = glob.glob("static/images/timeline*")
+    for path in all_timelines:
+        os.remove(path)
+
+
+def create_new_timeline(speeches, keyword):
+    # delete old timelines
+    delete_old_timelines()
+    # loop through speeches and get count of keyword
+    list_of_dates = []
+    for speech in speeches:
+        # add the date of the speech to a list for each hit
+        for i in range(speech.pdf.count(keyword)):
+            list_of_dates.append(datetime.fromtimestamp(int))
+
+    # after that loop: use Counter on that list
+    frequencies = Counter(list_of_dates)
+    print(frequencies)
+
+    # there is the data
+
 # Date filter
+
+
 @app.template_filter('datefromint')
 def format_date(int):
     date = datetime.fromtimestamp(int)
     date_formatted = date.strftime('%d.%m.%Y')
     return date_formatted
-
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -88,6 +113,7 @@ def index():
             keyword)).order_by(Speeches.date).limit(25).all()
 
         speeches_list = pagination(speeches)
+        create_new_timeline(speeches, keyword)
 
         new_wordcloud_path = create_new_wordCloud(speeches)
 
@@ -96,7 +122,7 @@ def index():
         img_paths = [new_wordcloud_path,
                      new_wordcloud_path, new_wordcloud_path]
 
-        return render_template('index.html', speeches_count = len(speeches), speeches=speeches_list, top_countries=countries, img_paths=img_paths)
+        return render_template('index.html', speeches_count=len(speeches), speeches=speeches_list, top_countries=countries, img_paths=img_paths)
 
     if request.method == 'GET':
         #####################
@@ -106,6 +132,8 @@ def index():
         speeches_list = pagination(speeches)
 
         new_wordcloud_path = create_new_wordCloud(speeches)
+
+        
 
         countries = [['Germany', 100, 20, 60], [
             'France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
