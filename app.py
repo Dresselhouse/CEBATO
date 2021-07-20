@@ -75,27 +75,21 @@ def delete_old_timelines():
 def create_new_timeline(speeches, keyword):
     # delete old timelines
     delete_old_timelines()
-    # loop through speeches and get count of keyword
-    list_of_dates = []
-    for speech in speeches:
-        # add the date of the speech to a list for each hit
-        for i in range(speech.pdf.count(keyword)):
-            list_of_dates.append(datetime.fromtimestamp(speech.date))
-
-    # after that loop: use Counter on that list
-    frequencies = Counter(list_of_dates)
-    print('#')
-    print(frequencies.items())
-    print('#')
+    plt.clf()
+    # loop through speeches and get count of keyword    
     keys = []
     values = []
-    for item in frequencies:
-        keys.append(item)
-        values.append(frequencies[item])
+    for speech in speeches:
+        # add the date of the speech and the count of hits
+        keys.append(datetime.fromtimestamp(speech.date))
+        values.append(speech.pdf.upper().count(keyword.upper()))
+
     random_path = random_with_N_digits(5)
     new_timeline_path = "static/images/timeline" + str(random_path) + ".png"
-    plt.scatter(keys, values)
-    plt.savefig(new_timeline_path)
+    plt.style.use("dark_background")
+    plt.scatter(keys, values)    
+    
+    plt.savefig(new_timeline_path, bbox_inches='tight')
     
     return new_timeline_path
 
