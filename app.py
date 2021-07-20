@@ -39,8 +39,6 @@ def random_with_N_digits(n):
 
 def pagination(speeches):
     speeches_list = []
-    print()
-    print(math.ceil(len(speeches)/5))
     for i in range(math.ceil(len(speeches)/5)):
         ifive = i*5
         speeches_list.append(speeches[ifive:ifive+5])
@@ -66,6 +64,14 @@ def create_new_wordCloud(speeches):
     wordcloud.to_file(new_wordcloud_path)
     return new_wordcloud_path
 
+# Date filter
+@app.template_filter('datefromint')
+def format_date(int):
+    date = datetime.fromtimestamp(int)
+    date_formatted = date.strftime('%d.%m.%Y')
+    return date_formatted
+
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -90,7 +96,7 @@ def index():
         img_paths = [new_wordcloud_path,
                      new_wordcloud_path, new_wordcloud_path]
 
-        return render_template('index.html', speeches=speeches_list, top_countries=countries, img_paths=img_paths)
+        return render_template('index.html', speeches_count = len(speeches), speeches=speeches_list, top_countries=countries, img_paths=img_paths)
 
     if request.method == 'GET':
         #####################

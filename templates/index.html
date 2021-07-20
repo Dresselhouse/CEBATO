@@ -21,8 +21,11 @@
 <section class="hero-section">
     <div class="hero-texte">
         <h1>Find out what the central banks talk about</h1>
-        <p class="hero-absatz">Cebato analyzes current topics and more than 10.000 historic speeches from central bankers all over the world.</p>
-        <a href="/tour"><p class="hero-cta">Show me</p></a>
+        <p class="hero-absatz">Cebato analyzes current topics and more than 10.000 historic speeches from central
+            bankers all over the world.</p>
+        <a href="/tour">
+            <p class="hero-cta">Show me</p>
+        </a>
     </div>
 </section>
 
@@ -48,8 +51,8 @@
                                 <option value="abbensen">Abbensen</option>
                             </select>
                         </div>
-    
-    
+
+
                     </div>
                     <div class="kws-input-batch">
                         <div class="kws-label-input">
@@ -88,12 +91,12 @@
                         <h3 class="kws-top-countries-headline">Top 3 Countries/Areas</h3>
                         <div class="kws-ro-countries-cards">
                             {% for country in top_countries %}
-                                <div class="kws-ro-country-card kws-top-country-{{ loop.index }}">
-                                    <h4>{{ loop.index }}. {{ country[0] }}</h4>
-                                    <p>{{ country[1] }} total mentions</p>
-                                    <p>in {{ country[2] }} speeches</p>
-                                    <p>{{ country[3] }}% of speeches mention it</p>
-                                </div>
+                            <div class="kws-ro-country-card kws-top-country-{{ loop.index }}">
+                                <h4>{{ loop.index }}. {{ country[0] }}</h4>
+                                <p>{{ country[1] }} total mentions</p>
+                                <p>in {{ country[2] }} speeches</p>
+                                <p>{{ country[3] }}% of speeches mention it</p>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -102,41 +105,23 @@
         </div>
 
         <div class="kws-speeches-card">
-            <h2>Speeches: {{ speeches|length * 5 - (5 - speeches[-1]|length) }}</h2>            
-        </div>
-
-        <table>
-            {% for speechbatch in speeches %}
-                
-                {% for speech in speechbatch %}
-                
-                <tr>
-                    <td>{{ speech.country }}</td>
-                </tr>
+            <h2>Speeches found: {{ speeches_count }}</h2>
+            <div class="kws-speeches-batch-container">
+                {% for speechbatch in speeches %}
+                <div class="kws-speeches-batch">
+                    {% for speech in speechbatch %}
+                    <div class="kws-speech-card kws-speech-card-{{ loop.index }}">
+                        <a href="https://www.bis.org/review/r{{ speech.id }}.htm">
+                            <h4>{{ speech.country }}</h4>
+                        </a>
+                        <p>{{ speech.date|datefromint }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
                 {% endfor %}
-            {% endfor %}
-            <img src="/{{ wordcloud_path }}" alt="wordcloud">
-            
-        </table>
+            </div>
+        </div>
     </div>
 </section>
-
-<!-- <div class="inhalt">
-    <form action="/" method="POST">
-        <input type="text" name="name" id="name">
-        <input type="submit" value="Upturnen">
-    </form>
-    
-    <table>
-        {% for speech in speeches %}
-            <tr>
-                <td>{{ speech.country }}</td>                
-            </tr>
-        {% endfor %}
-        <img src="/{{ wordcloud_path }}" alt="wordcloud">
-        
-    </table>
-</div> -->
-
 
 {% endblock %}
