@@ -87,6 +87,17 @@ def create_new_timeline(speeches, keyword):
     print('#')
     print(frequencies.items())
     print('#')
+    keys = []
+    values = []
+    for item in frequencies:
+        keys.append(item)
+        values.append(frequencies[item])
+    random_path = random_with_N_digits(5)
+    new_timeline_path = "static/images/timeline" + str(random_path) + ".png"
+    plt.scatter(keys, values)
+    plt.savefig(new_timeline_path)
+    
+    return new_timeline_path
 
     # there is the data
 
@@ -115,16 +126,17 @@ def index():
             keyword)).order_by(Speeches.date).limit(25).all()
 
         speeches_list = pagination(speeches)
-        create_new_timeline(speeches, keyword)
+        frequencies = create_new_timeline(speeches, keyword)
 
         new_wordcloud_path = create_new_wordCloud(speeches)
+        new_timeline_path = create_new_timeline(speeches, keyword)
 
         countries = [['Germany', 100, 20, 60], [
             'France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
         img_paths = [new_wordcloud_path,
-                     new_wordcloud_path, new_wordcloud_path]
+                     new_timeline_path, new_wordcloud_path]
 
-        return render_template('index.html', speeches_count=len(speeches), speeches=speeches_list, top_countries=countries, img_paths=img_paths)
+        return render_template('index.html', speeches_count=len(speeches), speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies = frequencies)
 
     if request.method == 'GET':
         #####################
@@ -135,14 +147,14 @@ def index():
 
         new_wordcloud_path = create_new_wordCloud(speeches)
 
-        
+        frequencies = create_new_timeline(speeches, "Bitcoin")
 
         countries = [['Germany', 100, 20, 60], [
             'France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
         img_paths = [new_wordcloud_path,
                      new_wordcloud_path, new_wordcloud_path]
 
-        return render_template('index.html', speeches=speeches_list, top_countries=countries, img_paths=img_paths)
+        return render_template('index.html', speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies = frequencies)
 
     else:
         speeches = Speeches.query.order_by(Speeches.date).limit(10).all()
