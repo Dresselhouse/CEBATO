@@ -80,7 +80,7 @@ def create_new_timeline(speeches, keyword):
     for speech in speeches:
         # add the date of the speech to a list for each hit
         for i in range(speech.pdf.count(keyword)):
-            list_of_dates.append(datetime.fromtimestamp(int))
+            list_of_dates.append(datetime.fromtimestamp(speech.date))
 
     # after that loop: use Counter on that list
     frequencies = Counter(list_of_dates)
