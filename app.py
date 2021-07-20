@@ -49,6 +49,7 @@ def index():
         for i in range(5):
             speeches_list.append([speeches[i:i+5]])
         print(speeches_list)
+        print(speeches[1])
         textt = "empty empty empty results"
         for speech in speeches:
             textt = textt + speech.pdf
