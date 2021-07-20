@@ -46,7 +46,7 @@ def index():
         for speech in speeches:
             textt = textt + speech.pdf
         #get all wordcloud images and delete them exept the default one
-        all_wordclouds = glob.glob("static/images/wordcloud*")        
+        all_wordclouds = glob.glob("static/images/wordcloud*")
         for path in all_wordclouds:
             if path == "static/images/wordcloud.png":
                continue
@@ -61,10 +61,33 @@ def index():
         img_paths = [new_wordcloud_path, new_wordcloud_path, new_wordcloud_path]
 
         return render_template('index.html', speeches = speeches, top_countries = countries, img_paths = img_paths)
+
+    if request.method == 'GET':
+        speeches = Speeches.query.order_by(Speeches.date).limit(10).all()
+        textt = "empty empty empty results"
+        for speech in speeches:
+            textt = textt + speech.pdf
+        #get all wordcloud images and delete them exept the default one
+        all_wordclouds = glob.glob("static/images/wordcloud*")
+        for path in all_wordclouds:
+            if path == "static/images/wordcloud.png":
+               continue
+            os.remove(path)
+
+        wordcloud = WordCloud().generate(textt)
+        random_path = random_with_N_digits(5)
+        new_wordcloud_path = "static/images/wordcloud" + str(random_path) + ".png"
+        wordcloud.to_file(new_wordcloud_path)
+
+        countries = [['Germany', 100, 20, 60], ['France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
+        img_paths = [new_wordcloud_path, new_wordcloud_path, new_wordcloud_path]
+
+        return render_template('index.html', speeches = speeches, top_countries = countries, img_paths = img_paths)
+    
         
     else:
         speeches = Speeches.query.order_by(Speeches.date).limit(10).all()
-        return render_template('index.html', speeches = speeches)
+        return render_template('tour.html', speeches = speeches)
         #return render_template('index.html')
 
 @app.route('/topicmodeling', methods=['POST', 'GET'])
