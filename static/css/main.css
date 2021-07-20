@@ -353,6 +353,11 @@ body {
   font-family: 'Montserrat';
 }
 
+.keyword-search-section .kws-params-card .kws-form .kws-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--off-white);
+}
+
 .keyword-search-section .kws-results-overview-card {
   padding: 2em;
   margin: 1em 0;

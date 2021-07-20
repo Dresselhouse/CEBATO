@@ -281,6 +281,12 @@ body {
                 border: none;
                 border-radius: 2px;
                 font-family: 'Montserrat';
+
+                &:hover {
+                    background-color: var(--primary-color);
+                    color: var(--off-white);
+                }
+
             }
 
         }

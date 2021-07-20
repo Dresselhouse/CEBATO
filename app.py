@@ -117,7 +117,7 @@ def index():
         enddate = request.form['enddate']
 
         speeches = Speeches.query.filter(Speeches.pdf.contains(
-            keyword)).order_by(Speeches.date).limit(25).all()
+            keyword)).order_by(Speeches.date).limit(50).all()
 
         speeches_list = pagination(speeches)
         frequencies = create_new_timeline(speeches, keyword)
