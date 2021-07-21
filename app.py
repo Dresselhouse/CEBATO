@@ -22,6 +22,14 @@ from pygal.style import DarkStyle
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bis_cb_speches_db_20_21.db'
+app.config['SQLALCHEMY_BINDS'] = {
+        "db2010": "sqlite:///bis_cb_speches_db_2010.db",
+        "db2011": "sqlite:///bis_cb_speches_db_2011.db",
+        "db2012": "sqlite:///bis_cb_speches_db_2012.db",
+        "db2013": "sqlite:///bis_cb_speches_db_2013.db",
+        "db2014": "sqlite:///bis_cb_speches_db_2014.db",
+        "db2015": "sqlite:///bis_cb_speches_db_2015.db",
+        "db2016": "sqlite:///bis_cb_speches_db_2016.db"}
 db = SQLAlchemy(app)
 
 
@@ -36,6 +44,97 @@ class Speeches(db.Model):
     def __repr__(self):
         return '<Speech %r>' % self.id
 
+class Speeches2010(db.Model):
+    __bind_key__ = "db2010"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+class Speeches2011(db.Model):
+    __bind_key__ = "db2011"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+class Speeches2012(db.Model):
+    __bind_key__ = "db2012"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+class Speeches2013(db.Model):
+    __bind_key__ = "db2013"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+class Speeches2014(db.Model):
+    __bind_key__ = "db2014"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+class Speeches2015(db.Model):
+    __bind_key__ = "db2015"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+
+class Speeches2016(db.Model):
+    __bind_key__ = "db2016"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
 
 def random_with_N_digits(n):
     range_start = 10**(n-1)
@@ -142,6 +241,43 @@ def create_new_worldmaps(speeches, keyword):
     worldmap.render_to_file(new_worldmap_path)
     return new_worldmap_path
 
+def query_database(keyword, area, start, end):
+
+    start = datetime.fromisoformat(start).timestamp()
+    end = datetime.fromisoformat(end).timestamp()
+
+    speeches = []
+
+    if not start > 1293750000 or end < 1263337200:
+        speeches.extend(Speeches2010.query.filter(Speeches2010.pdf.contains(
+            keyword)).filter(Speeches2010.date > start).filter(Speeches2010.date < end).order_by(Speeches2010.date).limit(500).all())
+
+    if not start > 1325199600 or end < 1294095600:
+        speeches.extend(Speeches2011.query.filter(Speeches2011.pdf.contains(
+            keyword)).filter(Speeches2011.date > start).filter(Speeches2011.date < end).order_by(Speeches2011.date).limit(500).all())
+
+    if not start > 1355958000 or end < 1325458800:
+        speeches.extend(Speeches2012.query.filter(Speeches2012.pdf.contains(
+            keyword)).filter(Speeches2012.date > start).filter(Speeches2012.date < end).order_by(Speeches2012.date).limit(500).all())
+
+    if not start > 1388444400 or end < 1357167600:
+        speeches.extend(Speeches2013.query.filter(Speeches2013.pdf.contains(
+            keyword)).filter(Speeches2013.date > start).filter(Speeches2013.date < end).order_by(Speeches2013.date).limit(500).all())
+
+    if not start > 1418598000 or end < 1388962800:
+        speeches.extend(Speeches2014.query.filter(Speeches2014.pdf.contains(
+            keyword)).filter(Speeches2014.date > start).filter(Speeches2014.date < end).order_by(Speeches2014.date).limit(500).all())
+
+    if not start > 1451430000 or end < 1420758000:
+        speeches.extend(Speeches2015.query.filter(Speeches2015.pdf.contains(
+            keyword)).filter(Speeches2015.date > start).filter(Speeches2015.date < end).order_by(Speeches2015.date).limit(500).all())
+
+    if not start > 1475186400 or end < 1452466800:
+        speeches.extend(Speeches2016.query.filter(Speeches2016.pdf.contains(
+            keyword)).filter(Speeches2016.date > start).filter(Speeches2016.date < end).order_by(Speeches2016.date).limit(500).all())
+
+
+    return speeches
 
 # Date filter
 @app.template_filter('datefromint')
@@ -162,8 +298,7 @@ def index():
         startdate = request.form['startdate']
         enddate = request.form['enddate']
 
-        speeches = Speeches.query.filter(Speeches.pdf.contains(
-            keyword)).order_by(Speeches.date).limit(50).all()
+        speeches = query_database(keyword, area, startdate, enddate)
 
         speeches_list = pagination(speeches)
         frequencies = create_new_timeline(speeches, keyword)

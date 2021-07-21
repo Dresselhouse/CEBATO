@@ -809,6 +809,9 @@ body {
   .hero-section .hero-texte .hero-absatz {
     font-size: 1.2rem;
   }
+  .keyword-search-section {
+    padding: 3rem 5%;
+  }
   .keyword-search-section .kws-container {
     display: -ms-grid;
     display: grid;

@@ -30,6 +30,7 @@
 </section>
 
 <section class="keyword-search-section">
+    <a id="keywordsearch"></a>
     <div class="kws-container">
         <div class="kws-params-card">
             <h2 class="kws-headline">Search Parameters</h2>
@@ -45,10 +46,6 @@
                             <select name="area" id="area">
                                 <option value="all">All</option>
                                 <option disabled>------</option>
-                                <option value="europe">Europe</option>
-                                <option value="us">US</option>
-                                <option disabled>------</option>
-                                <option value="abbensen">Abbensen</option>
                             </select>
                         </div>
 
@@ -84,7 +81,7 @@
                         </div>
                         <div class="kws-ro-map">
                             <h3>Map of usage</h3>
-                            <img class="kws-map-img" src="/{{ img_paths[2] }}" alt="timeline">
+                            <img class="kws-map-img" src="/{{ img_paths[2] }}" alt="world map">
                         </div>
                     </div>
                     <div class="kws-ro-top-countries">
@@ -123,41 +120,5 @@
         </div>
     </div>
 </section>
-
-<div w3-include-html="{{ img_paths[3] }}"></div>
-
-<script>
-    function includeHTML() {
-      var z, i, elmnt, file, xhttp;
-      /* Loop through a collection of all HTML elements: */
-      z = document.getElementsByTagName("*");
-      for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        file = elmnt.getAttribute("w3-include-html");
-        if (file) {
-          /* Make an HTTP request using the attribute value as the file name: */
-          xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() {
-            if (this.readyState == 4) {
-              if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-              if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-              /* Remove the attribute, and call this function once more: */
-              elmnt.removeAttribute("w3-include-html");
-              includeHTML();
-            }
-          }
-          xhttp.open("GET", file, true);
-          xhttp.send();
-          /* Exit the function: */
-          return;
-        }
-      }
-    }
-</script>
-
-<script>
-    includeHTML();
-</script>
 
 {% endblock %}
