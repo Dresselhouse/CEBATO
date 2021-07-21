@@ -2,7 +2,7 @@ from flask import Flask, url_for, request
 from flask.templating import render_template
 from flask.wrappers import Request
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timedelta
 from werkzeug.utils import redirect
 
 import os
@@ -243,8 +243,16 @@ def create_new_worldmaps(speeches, keyword):
 
 def query_database(keyword, area, start, end):
 
-    start = datetime.fromisoformat(start).timestamp()
-    end = datetime.fromisoformat(end).timestamp()
+    try: 
+        start = datetime.fromisoformat(start).timestamp()   
+    except:
+        start = (datetime.utcnow() - timedelta(days=30)).timestamp()
+
+    try:
+        end = datetime.fromisoformat(end).timestamp()
+    except:
+        end = datetime.utcnow().timestamp()
+
 
     speeches = []
 
@@ -276,6 +284,8 @@ def query_database(keyword, area, start, end):
         speeches.extend(Speeches2016.query.filter(Speeches2016.pdf.contains(
             keyword)).filter(Speeches2016.date > start).filter(Speeches2016.date < end).order_by(Speeches2016.date).limit(500).all())
 
+    speeches.extend((Speeches.query.filter(Speeches.pdf.contains(
+            keyword)).filter(Speeches.date > start).filter(Speeches.date < end).order_by(Speeches.date).limit(500).all()))
 
     return speeches
 
