@@ -15,6 +15,11 @@ import matplotlib.pyplot as plt
 import nltk
 from wordcloud import WordCloud
 
+# world map
+from pycountry_convert import country_name_to_country_alpha2
+import pygal
+from pygal.style import DarkStyle
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bis_cb_speches_db_20_21.db'
 db = SQLAlchemy(app)
@@ -76,7 +81,7 @@ def create_new_timeline(speeches, keyword):
     # delete old timelines
     delete_old_timelines()
     plt.clf()
-    # loop through speeches and get count of keyword    
+    # loop through speeches and get count of keyword
     keys = []
     values = []
     for speech in speeches:
@@ -87,17 +92,58 @@ def create_new_timeline(speeches, keyword):
     random_path = random_with_N_digits(5)
     new_timeline_path = "static/images/timeline" + str(random_path) + ".png"
     plt.style.use("dark_background")
-    plt.scatter(keys, values)    
-    
+    plt.scatter(keys, values)
+
     plt.savefig(new_timeline_path, bbox_inches='tight')
-    
+
     return new_timeline_path
 
-    # there is the data
+
+def prepare_map_data(speeches, keyword):
+    data = {}
+    for speech in speeches:
+        try:
+            cn_a2_code = country_name_to_country_alpha2(speech.title).lower()
+        except:
+            cn_a2_code = 'Unknown'
+        # if this country already exists in the list the current hitcount gets added to the value
+        # if not it becomes a new entry
+        if cn_a2_code in data:
+            data[cn_a2_code] += speech.pdf.upper().count(keyword.upper())
+        else:
+            data[cn_a2_code] = speech.pdf.upper().count(keyword.upper())
+
+    return data
+
+
+def delete_old_worldmaps():
+    all_worldmaps = glob.glob("static/images/worldmap*")
+    for path in all_worldmaps:
+        os.remove(path)
+
+
+def create_new_worldmaps(speeches, keyword):
+    delete_old_worldmaps()
+    # clear matplot from previous data
+    plt.clf()
+
+    data = prepare_map_data(speeches, keyword)
+    # empty map
+
+    # pygal map
+    worldmap = pygal.maps.world.World(style=DarkStyle)
+    worldmap.show_legend = False
+
+    worldmap.title = 'Countries'
+    worldmap.add('Frequencies', data)
+
+    random_path = random_with_N_digits(5)
+    new_worldmap_path = "static/images/worldmap" + str(random_path) + ".svg"
+    worldmap.render_to_file(new_worldmap_path)
+    return new_worldmap_path
+
 
 # Date filter
-
-
 @app.template_filter('datefromint')
 def format_date(int):
     date = datetime.fromtimestamp(int)
@@ -124,13 +170,14 @@ def index():
 
         new_wordcloud_path = create_new_wordCloud(speeches)
         new_timeline_path = create_new_timeline(speeches, keyword)
+        new_worldmap_path = create_new_worldmaps(speeches, keyword)
 
         countries = [['Germany', 100, 20, 60], [
             'France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
         img_paths = [new_wordcloud_path,
-                     new_timeline_path, new_wordcloud_path]
+                     new_timeline_path, new_worldmap_path]
 
-        return render_template('index.html', speeches_count=len(speeches), speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies = frequencies)
+        return render_template('index.html', speeches_count=len(speeches), speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies=frequencies)
 
     if request.method == 'GET':
         #####################
@@ -148,7 +195,7 @@ def index():
         img_paths = [new_wordcloud_path,
                      new_wordcloud_path, new_wordcloud_path]
 
-        return render_template('index.html', speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies = frequencies)
+        return render_template('index.html', speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies=frequencies)
 
     else:
         speeches = Speeches.query.order_by(Speeches.date).limit(10).all()
