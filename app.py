@@ -23,13 +23,18 @@ from pygal.style import DarkStyle
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bis_cb_speches_db_20_21.db'
 app.config['SQLALCHEMY_BINDS'] = {
-        "db2010": "sqlite:///bis_cb_speches_db_2010.db",
-        "db2011": "sqlite:///bis_cb_speches_db_2011.db",
-        "db2012": "sqlite:///bis_cb_speches_db_2012.db",
-        "db2013": "sqlite:///bis_cb_speches_db_2013.db",
-        "db2014": "sqlite:///bis_cb_speches_db_2014.db",
-        "db2015": "sqlite:///bis_cb_speches_db_2015.db",
-        "db2016": "sqlite:///bis_cb_speches_db_2016.db"}
+        "db2010": "sqlite:///bis_cb_speeches_db_10_clean.db",
+        "db2011": "sqlite:///bis_cb_speeches_db_11_clean.db",
+        "db2012": "sqlite:///bis_cb_speeches_db_12_clean.db",
+        "db2013": "sqlite:///bis_cb_speeches_db_13_clean.db",
+        "db2014": "sqlite:///bis_cb_speeches_db_14_clean.db",
+        "db2015": "sqlite:///bis_cb_speeches_db_15_clean.db",
+        "db2016": "sqlite:///bis_cb_speeches_db_16_clean.db",
+        "db2017": "sqlite:///bis_cb_speeches_db_17_clean.db",
+        "db2018": "sqlite:///bis_cb_speeches_db_18_clean.db",
+        "db2019": "sqlite:///bis_cb_speeches_db_19_clean.db",
+        "db2020": "sqlite:///bis_cb_speeches_db_20_clean.db",
+        "db2021": "sqlite:///bis_cb_speeches_db_21_clean.db"}
 db = SQLAlchemy(app)
 
 
@@ -136,6 +141,72 @@ class Speeches2016(db.Model):
     def __repr__(self):
         return '<Speech %r>' % self.id
 
+class Speeches2017(db.Model):
+    __bind_key__ = "db2017"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+class Speeches2018(db.Model):
+    __bind_key__ = "db2018"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+class Speeches2019(db.Model):
+    __bind_key__ = "db2019"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+class Speeches2020(db.Model):
+    __bind_key__ = "db2020"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+class Speeches2021(db.Model):
+    __bind_key__ = "db2021"
+    
+    id = db.Column(db.String, primary_key=True)
+    date = db.Column(db.Integer)
+    author = db.Column(db.String)
+    country = db.Column(db.String)
+    title = db.Column(db.String)
+    pdf = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Speech %r>' % self.id
+
+
 def random_with_N_digits(n):
     range_start = 10**(n-1)
     range_end = (10**n)-1
@@ -202,7 +273,7 @@ def prepare_map_data(speeches, keyword):
     data = {}
     for speech in speeches:
         try:
-            cn_a2_code = country_name_to_country_alpha2(speech.title).lower()
+            cn_a2_code = country_name_to_country_alpha2(speech.country).lower()
         except:
             cn_a2_code = 'Unknown'
         # if this country already exists in the list the current hitcount gets added to the value
@@ -240,19 +311,9 @@ def create_new_worldmaps(speeches, keyword):
     new_worldmap_path = "static/images/worldmap" + str(random_path) + ".svg"
     worldmap.render_to_file(new_worldmap_path)
     return new_worldmap_path
+    
 
-def query_database(keyword, area, start, end):
-
-    try: 
-        start = datetime.fromisoformat(start).timestamp()   
-    except:
-        start = (datetime.utcnow() - timedelta(days=30)).timestamp()
-
-    try:
-        end = datetime.fromisoformat(end).timestamp()
-    except:
-        end = datetime.utcnow().timestamp()
-
+def query_database_all_area(keyword, area, start, end):
 
     speeches = []
 
@@ -284,8 +345,102 @@ def query_database(keyword, area, start, end):
         speeches.extend(Speeches2016.query.filter(Speeches2016.pdf.contains(
             keyword)).filter(Speeches2016.date > start).filter(Speeches2016.date < end).order_by(Speeches2016.date).limit(500).all())
 
-    speeches.extend((Speeches.query.filter(Speeches.pdf.contains(
-            keyword)).filter(Speeches.date > start).filter(Speeches.date < end).order_by(Speeches.date).limit(500).all()))
+    if not start > 1514502000 or end < 1483657200:
+        speeches.extend(Speeches2017.query.filter(Speeches2017.pdf.contains(
+            keyword)).filter(Speeches2017.date > start).filter(Speeches2017.date < end).order_by(Speeches2017.date).limit(500).all())
+
+    if not start > 1545606000 or end < 1514847600:
+        speeches.extend(Speeches2018.query.filter(Speeches2018.pdf.contains(
+            keyword)).filter(Speeches2018.date > start).filter(Speeches2018.date < end).order_by(Speeches2018.date).limit(500).all())
+
+    if not start > 1577401200 or end < 1546815600:
+        speeches.extend(Speeches2019.query.filter(Speeches2019.pdf.contains(
+            keyword)).filter(Speeches2019.date > start).filter(Speeches2019.date < end).order_by(Speeches2019.date).limit(500).all())
+
+    if not start > 1609282800 or end < 1578265200:
+        speeches.extend(Speeches2020.query.filter(Speeches2020.pdf.contains(
+            keyword)).filter(Speeches2020.date > start).filter(Speeches2020.date < end).order_by(Speeches2020.date).limit(500).all())
+
+    if not start > 1626904800 or end < 1610060400:
+        speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
+            keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).order_by(Speeches2021.date).limit(500).all())
+
+
+    return speeches
+
+def query_database_area(keyword, area, start, end):
+    speeches = []
+
+    if not start > 1293750000 or end < 1263337200:
+        speeches.extend(Speeches2010.query.filter(Speeches2010.pdf.contains(
+            keyword)).filter(Speeches2010.date > start).filter(Speeches2010.date < end).filter(Speeches2010.country == area).order_by(Speeches2010.date).limit(500).all())
+
+    if not start > 1325199600 or end < 1294095600:
+        speeches.extend(Speeches2011.query.filter(Speeches2011.pdf.contains(
+            keyword)).filter(Speeches2011.date > start).filter(Speeches2011.date < end).filter(Speeches2011.country == area).order_by(Speeches2011.date).limit(500).all())
+
+    if not start > 1355958000 or end < 1325458800:
+        speeches.extend(Speeches2012.query.filter(Speeches2012.pdf.contains(
+            keyword)).filter(Speeches2012.date > start).filter(Speeches2012.date < end).filter(Speeches2012.country == area).order_by(Speeches2012.date).limit(500).all())
+
+    if not start > 1388444400 or end < 1357167600:
+        speeches.extend(Speeches2013.query.filter(Speeches2013.pdf.contains(
+            keyword)).filter(Speeches2013.date > start).filter(Speeches2013.date < end).filter(Speeches2013.country == area).order_by(Speeches2013.date).limit(500).all())
+
+    if not start > 1418598000 or end < 1388962800:
+        speeches.extend(Speeches2014.query.filter(Speeches2014.pdf.contains(
+            keyword)).filter(Speeches2014.date > start).filter(Speeches2014.date < end).filter(Speeches2014.country == area).order_by(Speeches2014.date).limit(500).all())
+
+    if not start > 1451430000 or end < 1420758000:
+        speeches.extend(Speeches2015.query.filter(Speeches2015.pdf.contains(
+            keyword)).filter(Speeches2015.date > start).filter(Speeches2015.date < end).filter(Speeches2015.country == area).order_by(Speeches2015.date).limit(500).all())
+
+    if not start > 1475186400 or end < 1452466800:
+        speeches.extend(Speeches2016.query.filter(Speeches2016.pdf.contains(
+            keyword)).filter(Speeches2016.date > start).filter(Speeches2016.date < end).filter(Speeches2016.country == area).order_by(Speeches2016.date).limit(500).all())
+
+    if not start > 1514502000 or end < 1483657200:
+        speeches.extend(Speeches2017.query.filter(Speeches2017.pdf.contains(
+            keyword)).filter(Speeches2017.date > start).filter(Speeches2017.date < end).filter(Speeches2017.country == area).order_by(Speeches2017.date).limit(500).all())
+
+    if not start > 1545606000 or end < 1514847600:
+        speeches.extend(Speeches2018.query.filter(Speeches2018.pdf.contains(
+            keyword)).filter(Speeches2018.date > start).filter(Speeches2018.date < end).filter(Speeches2018.country == area).order_by(Speeches2018.date).limit(500).all())
+
+    if not start > 1577401200 or end < 1546815600:
+        speeches.extend(Speeches2019.query.filter(Speeches2019.pdf.contains(
+            keyword)).filter(Speeches2019.date > start).filter(Speeches2019.date < end).filter(Speeches2019.country == area).order_by(Speeches2019.date).limit(500).all())
+
+    if not start > 1609282800 or end < 1578265200:
+        speeches.extend(Speeches2020.query.filter(Speeches2020.pdf.contains(
+            keyword)).filter(Speeches2020.date > start).filter(Speeches2020.date < end).filter(Speeches2020.country == area).order_by(Speeches2020.date).limit(500).all())
+
+    if not start > 1626904800 or end < 1610060400:
+        speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
+            keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).filter(Speeches2021.country == area).order_by(Speeches2021.date).limit(500).all())
+
+
+
+    return speeches
+
+def query_database(keyword, area, start, end):
+
+    try:
+        start = datetime.fromisoformat(start).timestamp()
+    except:
+        start = (datetime.utcnow() - timedelta(days=30)).timestamp()
+
+    try:
+        end = datetime.fromisoformat(end).timestamp()
+    except:
+        end = datetime.utcnow().timestamp()   
+
+
+
+    if area == 'all':
+        speeches = query_database_all_area(keyword, area, start, end)
+    else:
+        speeches = query_database_area(keyword, area, start, end)
 
     return speeches
 
