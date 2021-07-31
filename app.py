@@ -412,7 +412,7 @@ def query_database_area(keyword, area, start, end):
 
     return speeches
 
-def query_database(keyword, area, start, end):
+def query_database(keyword=' ', area='all', start=(datetime.utcnow() - timedelta(days=30)).timestamp(), end=datetime.utcnow().timestamp()):
 
     try:
         start = datetime.fromisoformat(start).timestamp()
@@ -472,7 +472,7 @@ def index():
         #####################
         # Normaler Seitenload
         #####################
-        speeches = Speeches.query.order_by(Speeches.date).limit(25).all()
+        speeches = query_database()
         speeches_list = pagination(speeches)
 
         new_wordcloud_path = create_new_wordCloud(speeches)
@@ -487,7 +487,7 @@ def index():
         return render_template('index.html', speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies=frequencies)
 
     else:
-        speeches = Speeches.query.order_by(Speeches.date).limit(10).all()
+        speeches = query_database()
         return render_template('tour.html', speeches=speeches)
         # return render_template('index.html')
 
