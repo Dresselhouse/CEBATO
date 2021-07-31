@@ -21,6 +21,8 @@ from pygal.style import DarkStyle
 #LDA
 import spacy
 nlp = spacy.load('en_core_web_sm')
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
 
 
 app = Flask(__name__)
@@ -480,7 +482,7 @@ def index():
 
         new_wordcloud_path = create_new_wordCloud(speeches)
 
-        frequencies = create_new_timeline(speeches, "Bitcoin")
+        frequencies = create_new_timeline(speeches, "1")
 
         countries = [['Germany', 100, 20, 60], [
             'France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
