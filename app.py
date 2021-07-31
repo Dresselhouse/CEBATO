@@ -9,16 +9,19 @@ import os
 import glob
 from random import randint
 import math
-from collections import Counter
 
 import matplotlib.pyplot as plt
-import nltk
 from wordcloud import WordCloud
 
 # world map
 from pycountry_convert import country_name_to_country_alpha2
 import pygal
 from pygal.style import DarkStyle
+
+#LDA
+import spacy
+nlp = spacy.load('en_core_web_sm')
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bis_cb_speches_db_20_21.db'
