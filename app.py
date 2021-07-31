@@ -496,11 +496,99 @@ def index():
         return render_template('tour.html', speeches=speeches)
         # return render_template('index.html')
 
+def delete_old_tm_results():
+    all_tm_results = glob.glob("static/images/tm_results*")
+    for path in all_tm_results:
+        os.remove(path)
+
+def topic_modeling(speeches, num_comps):
+    # Setting up the Vectorizer
+    cv = CountVectorizer(max_df=0.8, min_df=0.01, stop_words='english')
+    dtm = cv.fit_transform([speech.pdf for speech in speeches])
+    LDA = LatentDirichletAllocation(n_components=num_comps)
+    LDA.fit(dtm)
+
+
+    # Get the 15 Top words for each Topic
+    topics = []
+    for i,topic in enumerate(LDA.components_):
+        topics.append([cv.get_feature_names()[index] for index in topic.argsort()[-15:]])
+    
+    # Prepare the Data for the Plot and overview
+    topic_results = LDA.transform(dtm)
+    color_names = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:brown', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
+    x = []
+    y = []
+    colors = []
+    topic_counter = [0 for topic in enumerate(LDA.components_)]
+    
+    topic_percentages = [0 for topic in enumerate(LDA.components_)]
+    index = 0
+    for speech in speeches:       
+        
+        # get the x value
+        x.append(datetime.fromtimestamp(speech.date))
+        # get the y value
+        y.append(topic_results[index][topic_results[index].argmax()])
+        # get the color (topic) and add one to the counter list for the topic
+        topic_index = topic_results[index].argmax()
+        colors.append(color_names[topic_index])
+        topic_counter[topic_index] += 1
+        index += 1
+        
+
+    # Count the counter lists, calculate the percentages and make them into a list. 
+    sum = 0
+    for index in range(len(topic_counter)):
+        sum += topic_counter[index]
+    for index in range(len(topic_counter)):
+        topic_percentages[index] = round((topic_counter[index] / sum) * 100, 1)
+
+    # Sort the topics by their percentages
+    topwords_and_percentages = []
+    for index in range(len(topics)):
+        topwords_and_percentages.append([topic_percentages[index], list(reversed(topics[index]))])
+
+    topwords_and_percentages.sort()
+    topwords_and_percentages.reverse()
+
+    # Create the plot
+    delete_old_tm_results()
+    plt.clf()
+    plt.scatter(x, y, c=colors, alpha=0.5)
+
+    random_path = random_with_N_digits(5)
+    new_tm_results_path = "static/images/tm_results" + str(random_path) + ".png"
+
+    plt.savefig(new_tm_results_path, bbox_inches='tight')
+
+    return topwords_and_percentages, new_tm_results_path
+
 
 @app.route('/topicmodeling', methods=['POST', 'GET'])
 def topicmodeling():
     if request.method == 'POST':
-        pass
+        ################
+        # Topic Modeling
+        ################
+        try:
+            number_topics = int(request.form['numbertopics'])
+        except:
+            number_topics = 3
+        #area = request.form['area']        
+        #startdate = request.form['startdate']
+        #enddate = request.form['enddate']
+
+        speeches = query_database()
+
+        #topics = [['eins', 'zwei', 'drei'], ['un', 'dos', 'tres']]
+        results = topic_modeling(speeches, num_comps=number_topics)
+        topics = results[0]
+        topic_percentages = []
+        path = results[1]
+
+        return render_template('topicmodeling.html', speeches_count=len(speeches), topics=topics, path=path)
+
 
     else:
         return render_template('topicmodeling.html')

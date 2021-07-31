@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/topicmodel.css') }}">
 <title>CEBATO Topic Modeling</title>
 {% endblock %}
 
@@ -17,19 +18,26 @@
         <div class="line3"></div>
     </div>
 </nav>
+
+<section class="hero-section">
+
+</section>
+
 <div class="inhalt">
-    <form action="/" method="POST">
-        <input type="text" name="name" id="name">
+    <form action="/topicmodeling" method="POST">
+        <input type="number" min="2" max="10" name="numbertopics" id="numbertopics">
         <input type="submit" value="Upturnen">
     </form>
     
     <table>
-        {% for speech in speeches %}
+        <p>{{ topwords_and_percents }}</p>
+        {% for topic in topics %}
             <tr>
-                <td>{{ speech.country }}</td>                
+                <td>{{ topic[0] }} </td>
+                <td>{{ topic[1] }} </td>
             </tr>
         {% endfor %}
-        <img src="/{{ wordcloud_path }}" alt="wordcloud">
+        <img src="/{{ path }}" alt="LDA Results">
         
     </table>
 </div>
