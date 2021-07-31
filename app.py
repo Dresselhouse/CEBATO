@@ -38,17 +38,6 @@ app.config['SQLALCHEMY_BINDS'] = {
 db = SQLAlchemy(app)
 
 
-class Speeches(db.Model):
-    id = db.Column(db.String, primary_key=True)
-    date = db.Column(db.Integer)
-    author = db.Column(db.String)
-    country = db.Column(db.String)
-    title = db.Column(db.String)
-    pdf = db.Column(db.String)
-
-    def __repr__(self):
-        return '<Speech %r>' % self.id
-
 class Speeches2010(db.Model):
     __bind_key__ = "db2010"
     
