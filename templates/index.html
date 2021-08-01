@@ -193,9 +193,8 @@
                             {% for country in top_countries %}
                             <div class="kws-ro-country-card kws-top-country-{{ loop.index }}">
                                 <h4>{{ loop.index }}. {{ country[0] }}</h4>
-                                <p>{{ country[1] }} total mentions</p>
-                                <p>in {{ country[2] }} speeches</p>
-                                <p>{{ country[3] }}% of speeches mention it</p>
+                                <p>{{ country[1][0] }} total mentions</p>
+                                <p>in {{ country[1][1] }} speeches</p>                                
                             </div>
                             {% endfor %}
                         </div>
@@ -223,5 +222,6 @@
         </div>
     </div>
 </section>
+
 
 {% endblock %}

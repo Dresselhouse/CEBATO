@@ -16,6 +16,7 @@ from wordcloud import WordCloud
 
 # world map
 from pycountry_convert import country_name_to_country_alpha2
+from pycountry_convert import country_alpha2_to_country_name
 import pygal
 from pygal.style import DarkStyle
 
@@ -209,6 +210,10 @@ def random_with_N_digits(n):
 
 
 def pagination(speeches):
+
+    if len(speeches) > 25:
+        speeches = speeches[0:25]
+
     speeches_list = []
     for i in range(math.ceil(len(speeches)/5)):
         ifive = i*5
@@ -265,20 +270,34 @@ def create_new_timeline(speeches, keyword):
 
 
 def prepare_map_data(speeches, keyword):
+    
     data = {}
+    data_alpha = {}
     for speech in speeches:
-        try:
-            cn_a2_code = country_name_to_country_alpha2(speech.country).lower()
-        except:
-            cn_a2_code = 'Unknown'
+
         # if this country already exists in the list the current hitcount gets added to the value
         # if not it becomes a new entry
-        if cn_a2_code in data:
-            data[cn_a2_code] += speech.pdf.upper().count(keyword.upper())
-        else:
-            data[cn_a2_code] = speech.pdf.upper().count(keyword.upper())
+        # 1 gets added to the speech count
 
-    return data
+        if speech.country in data:
+            data[speech.country][0] += speech.pdf.upper().count(keyword.upper())
+            data[speech.country][1] += 1
+        else:
+            data[speech.country] = [0, 0]
+            data[speech.country][0] += speech.pdf.upper().count(keyword.upper())
+            data[speech.country][1] += 1
+
+    for country in data:
+        try:
+            cn_a2_code = country_name_to_country_alpha2(country).lower() 
+            data_alpha[cn_a2_code] = data[country][1]
+        except:
+            cn_a2_code = 'Unknown'
+
+        
+            
+
+    return data, data_alpha
 
 
 def delete_old_worldmaps():
@@ -292,7 +311,9 @@ def create_new_worldmaps(speeches, keyword):
     # clear matplot from previous data
     plt.clf()
 
-    data = prepare_map_data(speeches, keyword)
+    dataDicts = prepare_map_data(speeches, keyword)
+    data = dataDicts[1]
+    top_countries = [(k, dataDicts[0][k]) for k in sorted(dataDicts[0], key=dataDicts[0].get, reverse=True)][0:3]
     # empty map
 
     # pygal map
@@ -305,7 +326,10 @@ def create_new_worldmaps(speeches, keyword):
     random_path = random_with_N_digits(5)
     new_worldmap_path = "static/images/worldmap" + str(random_path) + ".svg"
     worldmap.render_to_file(new_worldmap_path)
-    return new_worldmap_path
+
+    # Get Top 3 countries    
+
+    return new_worldmap_path, top_countries
     
 
 def query_database_all_area(keyword, area, start, end):
@@ -360,10 +384,11 @@ def query_database_all_area(keyword, area, start, end):
         speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
             keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).order_by(Speeches2021.date).all())
 
-    if len(speeches) > 100:
-        speeches = random.sample(speeches, 100)
-        speeches.sort(key=lambda speech: speech.date)
-        speeches.reverse()
+    if len(speeches) > 200:
+        speeches = random.sample(speeches, 200)
+
+    speeches.sort(key=lambda speech: speech.date)
+    speeches.reverse()
 
     return speeches
 
@@ -420,8 +445,9 @@ def query_database_area(keyword, area, start, end):
 
     if len(speeches) > 200:
         speeches = random.sample(speeches, 200)
-        speeches.sort(key=lambda speech: speech.date)
-
+        
+    speeches.sort(key=lambda speech: speech.date)
+    speeches.reverse()
     return speeches
 
 def query_database(keyword=' ', area='all', start=(datetime.utcnow() - timedelta(days=30)).timestamp(), end=datetime.utcnow().timestamp()):
@@ -471,14 +497,17 @@ def index():
 
         new_wordcloud_path = create_new_wordCloud(speeches)
         new_timeline_path = create_new_timeline(speeches, keyword)
-        new_worldmap_path = create_new_worldmaps(speeches, keyword)
+        map_results = create_new_worldmaps(speeches, keyword)
+        new_worldmap_path = map_results[0]
+        top_countries = map_results[1]
+        
 
         countries = [['Germany', 100, 20, 60], [
             'France', 90, 33, 80], ['Netherlands', 80, 25, 66]]
         img_paths = [new_wordcloud_path,
                      new_timeline_path, new_worldmap_path]
 
-        return render_template('index.html', speeches_count=len(speeches), speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies=frequencies)
+        return render_template('index.html', speeches_count=len(speeches), speeches=speeches_list, top_countries=top_countries, img_paths=img_paths, frequencies=frequencies)
 
     if request.method == 'GET':
         #####################
@@ -510,8 +539,7 @@ def delete_old_tm_results():
 
 def topic_modeling(speeches, num_comps):
     if len(speeches) > 50:
-        speeches = random.sample(speeches, 50)
-        speeches.sort(key=lambda speech: speech.date)
+        speeches = random.sample(speeches, 50)        
     # Setting up the Vectorizer
     cv = CountVectorizer(max_df=0.8, min_df=0.01, stop_words='english')
     dtm = cv.fit_transform([speech.pdf for speech in speeches])
