@@ -418,8 +418,8 @@ def query_database_area(keyword, area, start, end):
         speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
             keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).filter(Speeches2021.country == area).order_by(Speeches2021.date).all())
 
-    if len(speeches) > 100:
-        speeches = random.sample(speeches, 100)
+    if len(speeches) > 200:
+        speeches = random.sample(speeches, 200)
         speeches.sort(key=lambda speech: speech.date)
 
     return speeches
@@ -509,6 +509,9 @@ def delete_old_tm_results():
         os.remove(path)
 
 def topic_modeling(speeches, num_comps):
+    if len(speeches) > 50:
+        speeches = random.sample(speeches, 50)
+        speeches.sort(key=lambda speech: speech.date)
     # Setting up the Vectorizer
     cv = CountVectorizer(max_df=0.8, min_df=0.01, stop_words='english')
     dtm = cv.fit_transform([speech.pdf for speech in speeches])
