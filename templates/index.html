@@ -212,7 +212,7 @@
                     {% for speech in speechbatch %}
                     <div class="kws-speech-card kws-speech-card-{{ loop.index }}">
                         <a href="https://www.bis.org/review/r{{ speech.id }}.htm">
-                            <h4>{{ speech.country }}</h4>
+                            <h4>{{ speech.title }}</h4>
                         </a>
                         <p>{{ speech.date|datefromint }}</p>
                     </div>

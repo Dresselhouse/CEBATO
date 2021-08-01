@@ -181,6 +181,300 @@ body {
     height: 3rem;
 }
 
+.topic-modeling-section {
+    background-color: var(--grey-BG);
+    padding: 3rem 10%;
+    color: var(--off-white);
+
+    .tm-params-card {
+        padding: 2em;
+        margin: 1em 0;
+        background-color: black;
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+            margin-bottom: 2rem;
+            font-family: 'Montserrat';
+            text-align: center;
+        }
+
+        .tm-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            .tm-parameter-fields {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .tm-label-input {
+                width: 100%;
+                margin: .8rem 0;
+                display: flex;
+                justify-content: space-between;
+
+                input, select {
+                    background-color: var(--grey-btn);
+                    border: none;
+                    border-radius: 2px;
+                    width: 15ch;
+                    max-width: 15ch;
+                }
+
+            }
+
+            .tm-btn {
+                background-color: var(--grey-btn);
+                margin: 1rem auto 0 auto;
+                padding: 5px 10px;
+                width: fit-content;
+                font-weight: 500;
+                border: none;
+                border-radius: 2px;
+                font-family: 'Montserrat';
+
+                &:hover {
+                    background-color: var(--primary-color);
+                    color: var(--off-white);
+                    cursor: pointer;
+                }
+
+            }
+
+        }
+
+    }
+
+    .tm-plot-card {
+        padding: 2em;
+        margin: 1em 0;
+        background-color: black;
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+            font-family: 'Montserrat';
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-family: 'Montserrat';
+            margin-bottom: 1rem;
+        }
+
+        img {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .tm-ro-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .kw-ro-time-map {
+            width: 100%;
+
+            div {
+                width: 100%;
+
+                div {
+                    width: 100%;
+                }
+            }
+        }
+
+        .tm-ro-top-countries {
+            margin-top: 1rem;
+            width: 100%;
+
+            .tm-ro-countries-cards {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 1rem;
+
+                .tm-ro-country-card {
+                    text-align: start;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    width: calc(100% - 1.4rem);
+                    padding: .7rem;
+                    margin: .5rem 0;
+                    border-radius: 2px;
+
+                    h4 {
+                        margin-bottom: 1rem;
+                    }
+
+                }
+
+                .tm-top-country-1 {
+                    background-color: var(--card-odd);
+                }
+
+                .tm-top-country-2 {
+                    background-color: var(--card-even);
+                }
+
+                .tm-top-country-3 {
+                    background-color: var(--card-odd);
+                }
+
+            }
+
+        }
+
+    }
+
+    .tm-topics-card {
+        padding: 2em;
+        margin: 1em 0;
+        background-color: black;
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+        display: flex;
+        flex-direction: column;
+
+        h2 {
+            margin-bottom: 2rem;
+            font-family: 'Montserrat';
+            text-align: center;
+        }
+
+        .tm-topics-batch-container {
+            display: flex;
+            flex-direction: column;
+            gap: .2rem;
+        }
+
+
+        .tm-topic-card {
+            text-align: start;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: calc(100% - 1.4rem);
+            padding: .7rem;
+            margin: .5rem 0;
+            border-radius: 2px;
+
+            h4 {
+                color: black;
+                text-decoration: none;
+                font-size: 1.2rem;
+                font-weight: bold;
+                padding: 3px 5px;
+                text-align: center;
+                margin-bottom: 0.5rem;
+                
+            }
+
+            p {
+                line-height: 1.9rem;
+                word-spacing: 0.9rem;
+                text-align: center;
+            }
+        }
+
+        .tm-topic-card-1 {
+            background-color: var(--card-odd);
+        }
+
+        .tm-topic-card-2 {
+            background-color: var(--card-even);
+        }
+
+        .tm-topic-card-3 {
+            background-color: var(--card-odd);
+        }
+
+        .tm-topic-card-4 {
+            background-color: var(--card-even);
+        }
+
+        .tm-topic-card-5 {
+            background-color: var(--card-odd);
+        }
+
+        .tm-topic-card-6 {
+            background-color: var(--card-even);
+        }
+
+        .tm-topic-card-7 {
+            background-color: var(--card-odd);
+        }
+
+        .tm-topic-card-8 {
+            background-color: var(--card-even);
+        }
+
+        .tm-topic-card-9 {
+            background-color: var(--card-odd);
+        }
+
+        .tm-topic-card-10 {
+            background-color: var(--card-even);
+        }
+
+        .color-0 {
+            background-color: #1F77B4;
+        }
+
+        .color-1 {
+            background-color: #FF7F0E;
+            color: black;
+        }
+
+        .color-2 {
+            background-color: #2CA02C;
+        }
+
+        .color-3 {
+            background-color: #D62728;
+        }
+
+        .color-4 {
+            background-color: #9467BD;
+        }
+
+        .color-5 {
+            background-color: #8C564B;
+        }
+
+        .color-6 {
+            background-color: #E377C2;            
+        }
+
+        .color-7 {
+            background-color: #7F7F7F;
+        }
+
+        .color-8 {
+            background-color: #BCBD22;            
+        }
+
+        .color-9 {
+            background-color: #17BECF;
+        }
+        
+    }
+
+}
+
 
 .data-section {
     background-color: var(--grey-BG);
@@ -289,6 +583,24 @@ body {
         justify-content: space-between;
     }
 
+    .topic-modeling-section {
+
+        .tm-params-card {
+
+            .tm-form {               
+
+                .tm-parameter-fields {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    
+                    .tm-input-batch {
+                        width: 35%;
+                    }                    
+                }
+            }
+        }
+    }
+
     .data-section {
 
         .data-card {
@@ -335,16 +647,34 @@ body {
 }
 
 
-//Big Tablet Mode Main
-@media screen and (min-width:900px) {
-
-
-
-}
-
-
 //Desktop Mode Main
 @media screen and (min-width:1300px) {
+
+    .topic-modeling-section {
+        padding: 3rem 5%;
+
+        .tm-container {
+            //max-height: 100%;
+            display: grid;
+            grid-template-columns: 49% 49%;
+            grid-template-rows: auto auto;
+            grid-column-gap: 2%;
+            
+
+            .tm-params-card {
+                height: fit-content;
+            }
+
+            .tm-topics-card {
+                grid-row-start: 1;
+                grid-row-end: 3;
+
+
+
+            }
+        }
+
+    }
 
     .data-section {
 

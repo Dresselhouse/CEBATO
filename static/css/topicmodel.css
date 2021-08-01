@@ -207,6 +207,363 @@ body {
   height: 3rem;
 }
 
+.topic-modeling-section {
+  background-color: var(--grey-BG);
+  padding: 3rem 10%;
+  color: var(--off-white);
+}
+
+.topic-modeling-section .tm-params-card {
+  padding: 2em;
+  margin: 1em 0;
+  background-color: black;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.topic-modeling-section .tm-params-card h2 {
+  margin-bottom: 2rem;
+  font-family: 'Montserrat';
+  text-align: center;
+}
+
+.topic-modeling-section .tm-params-card .tm-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+}
+
+.topic-modeling-section .tm-params-card .tm-form .tm-parameter-fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.topic-modeling-section .tm-params-card .tm-form .tm-label-input {
+  width: 100%;
+  margin: .8rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.topic-modeling-section .tm-params-card .tm-form .tm-label-input input, .topic-modeling-section .tm-params-card .tm-form .tm-label-input select {
+  background-color: var(--grey-btn);
+  border: none;
+  border-radius: 2px;
+  width: 15ch;
+  max-width: 15ch;
+}
+
+.topic-modeling-section .tm-params-card .tm-form .tm-btn {
+  background-color: var(--grey-btn);
+  margin: 1rem auto 0 auto;
+  padding: 5px 10px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: 500;
+  border: none;
+  border-radius: 2px;
+  font-family: 'Montserrat';
+}
+
+.topic-modeling-section .tm-params-card .tm-form .tm-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--off-white);
+  cursor: pointer;
+}
+
+.topic-modeling-section .tm-plot-card {
+  padding: 2em;
+  margin: 1em 0;
+  background-color: black;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.topic-modeling-section .tm-plot-card h2 {
+  font-family: 'Montserrat';
+  margin-bottom: 1rem;
+}
+
+.topic-modeling-section .tm-plot-card h3 {
+  font-family: 'Montserrat';
+  margin-bottom: 1rem;
+}
+
+.topic-modeling-section .tm-plot-card img {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.topic-modeling-section .tm-plot-card .tm-ro-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.topic-modeling-section .tm-plot-card .kw-ro-time-map {
+  width: 100%;
+}
+
+.topic-modeling-section .tm-plot-card .kw-ro-time-map div {
+  width: 100%;
+}
+
+.topic-modeling-section .tm-plot-card .kw-ro-time-map div div {
+  width: 100%;
+}
+
+.topic-modeling-section .tm-plot-card .tm-ro-top-countries {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.topic-modeling-section .tm-plot-card .tm-ro-top-countries .tm-ro-countries-cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 1rem;
+}
+
+.topic-modeling-section .tm-plot-card .tm-ro-top-countries .tm-ro-countries-cards .tm-ro-country-card {
+  text-align: start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: calc(100% - 1.4rem);
+  padding: .7rem;
+  margin: .5rem 0;
+  border-radius: 2px;
+}
+
+.topic-modeling-section .tm-plot-card .tm-ro-top-countries .tm-ro-countries-cards .tm-ro-country-card h4 {
+  margin-bottom: 1rem;
+}
+
+.topic-modeling-section .tm-plot-card .tm-ro-top-countries .tm-ro-countries-cards .tm-top-country-1 {
+  background-color: var(--card-odd);
+}
+
+.topic-modeling-section .tm-plot-card .tm-ro-top-countries .tm-ro-countries-cards .tm-top-country-2 {
+  background-color: var(--card-even);
+}
+
+.topic-modeling-section .tm-plot-card .tm-ro-top-countries .tm-ro-countries-cards .tm-top-country-3 {
+  background-color: var(--card-odd);
+}
+
+.topic-modeling-section .tm-topics-card {
+  padding: 2em;
+  margin: 1em 0;
+  background-color: black;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.topic-modeling-section .tm-topics-card h2 {
+  margin-bottom: 2rem;
+  font-family: 'Montserrat';
+  text-align: center;
+}
+
+.topic-modeling-section .tm-topics-card .tm-topics-batch-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: .2rem;
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card {
+  text-align: start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: calc(100% - 1.4rem);
+  padding: .7rem;
+  margin: .5rem 0;
+  border-radius: 2px;
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card h4 {
+  color: black;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 3px 5px;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card p {
+  line-height: 1.9rem;
+  word-spacing: 0.9rem;
+  text-align: center;
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-1 {
+  background-color: var(--card-odd);
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-2 {
+  background-color: var(--card-even);
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-3 {
+  background-color: var(--card-odd);
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-4 {
+  background-color: var(--card-even);
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-5 {
+  background-color: var(--card-odd);
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-6 {
+  background-color: var(--card-even);
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-7 {
+  background-color: var(--card-odd);
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-8 {
+  background-color: var(--card-even);
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-9 {
+  background-color: var(--card-odd);
+}
+
+.topic-modeling-section .tm-topics-card .tm-topic-card-10 {
+  background-color: var(--card-even);
+}
+
+.topic-modeling-section .tm-topics-card .color-0 {
+  background-color: #1F77B4;
+}
+
+.topic-modeling-section .tm-topics-card .color-1 {
+  background-color: #FF7F0E;
+  color: black;
+}
+
+.topic-modeling-section .tm-topics-card .color-2 {
+  background-color: #2CA02C;
+}
+
+.topic-modeling-section .tm-topics-card .color-3 {
+  background-color: #D62728;
+}
+
+.topic-modeling-section .tm-topics-card .color-4 {
+  background-color: #9467BD;
+}
+
+.topic-modeling-section .tm-topics-card .color-5 {
+  background-color: #8C564B;
+}
+
+.topic-modeling-section .tm-topics-card .color-6 {
+  background-color: #E377C2;
+}
+
+.topic-modeling-section .tm-topics-card .color-7 {
+  background-color: #7F7F7F;
+}
+
+.topic-modeling-section .tm-topics-card .color-8 {
+  background-color: #BCBD22;
+}
+
+.topic-modeling-section .tm-topics-card .color-9 {
+  background-color: #17BECF;
+}
+
 .data-section {
   background-color: var(--grey-BG);
   padding: 3rem 10%;
@@ -319,6 +676,18 @@ body {
         -ms-flex-pack: justify;
             justify-content: space-between;
   }
+  .topic-modeling-section .tm-params-card .tm-form .tm-parameter-fields {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .topic-modeling-section .tm-params-card .tm-form .tm-parameter-fields .tm-input-batch {
+    width: 35%;
+  }
   .data-section .data-card {
     padding: 3rem;
   }
@@ -355,6 +724,28 @@ body {
 }
 
 @media screen and (min-width: 1300px) {
+  .topic-modeling-section {
+    padding: 3rem 5%;
+  }
+  .topic-modeling-section .tm-container {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 49% 49%;
+        grid-template-columns: 49% 49%;
+    -ms-grid-rows: auto auto;
+        grid-template-rows: auto auto;
+    grid-column-gap: 2%;
+  }
+  .topic-modeling-section .tm-container .tm-params-card {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  .topic-modeling-section .tm-container .tm-topics-card {
+    -ms-grid-row: 1;
+        grid-row-start: 1;
+    grid-row-end: 3;
+  }
   .data-section .data-card {
     padding: 3rem 6rem;
   }

@@ -7,8 +7,9 @@ from werkzeug.utils import redirect
 
 import os
 import glob
-from random import randint
+from random import randint, random
 import math
+import random
 
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
@@ -313,53 +314,57 @@ def query_database_all_area(keyword, area, start, end):
 
     if not start > 1293750000 or end < 1263337200:
         speeches.extend(Speeches2010.query.filter(Speeches2010.pdf.contains(
-            keyword)).filter(Speeches2010.date > start).filter(Speeches2010.date < end).order_by(Speeches2010.date).limit(500).all())
+            keyword)).filter(Speeches2010.date > start).filter(Speeches2010.date < end).order_by(Speeches2010.date).all())
 
     if not start > 1325199600 or end < 1294095600:
         speeches.extend(Speeches2011.query.filter(Speeches2011.pdf.contains(
-            keyword)).filter(Speeches2011.date > start).filter(Speeches2011.date < end).order_by(Speeches2011.date).limit(500).all())
+            keyword)).filter(Speeches2011.date > start).filter(Speeches2011.date < end).order_by(Speeches2011.date).all())
 
     if not start > 1355958000 or end < 1325458800:
         speeches.extend(Speeches2012.query.filter(Speeches2012.pdf.contains(
-            keyword)).filter(Speeches2012.date > start).filter(Speeches2012.date < end).order_by(Speeches2012.date).limit(500).all())
+            keyword)).filter(Speeches2012.date > start).filter(Speeches2012.date < end).order_by(Speeches2012.date).all())
 
     if not start > 1388444400 or end < 1357167600:
         speeches.extend(Speeches2013.query.filter(Speeches2013.pdf.contains(
-            keyword)).filter(Speeches2013.date > start).filter(Speeches2013.date < end).order_by(Speeches2013.date).limit(500).all())
+            keyword)).filter(Speeches2013.date > start).filter(Speeches2013.date < end).order_by(Speeches2013.date).all())
 
     if not start > 1418598000 or end < 1388962800:
         speeches.extend(Speeches2014.query.filter(Speeches2014.pdf.contains(
-            keyword)).filter(Speeches2014.date > start).filter(Speeches2014.date < end).order_by(Speeches2014.date).limit(500).all())
+            keyword)).filter(Speeches2014.date > start).filter(Speeches2014.date < end).order_by(Speeches2014.date).all())
 
     if not start > 1451430000 or end < 1420758000:
         speeches.extend(Speeches2015.query.filter(Speeches2015.pdf.contains(
-            keyword)).filter(Speeches2015.date > start).filter(Speeches2015.date < end).order_by(Speeches2015.date).limit(500).all())
+            keyword)).filter(Speeches2015.date > start).filter(Speeches2015.date < end).order_by(Speeches2015.date).all())
 
     if not start > 1475186400 or end < 1452466800:
         speeches.extend(Speeches2016.query.filter(Speeches2016.pdf.contains(
-            keyword)).filter(Speeches2016.date > start).filter(Speeches2016.date < end).order_by(Speeches2016.date).limit(500).all())
+            keyword)).filter(Speeches2016.date > start).filter(Speeches2016.date < end).order_by(Speeches2016.date).all())
 
     if not start > 1514502000 or end < 1483657200:
         speeches.extend(Speeches2017.query.filter(Speeches2017.pdf.contains(
-            keyword)).filter(Speeches2017.date > start).filter(Speeches2017.date < end).order_by(Speeches2017.date).limit(500).all())
+            keyword)).filter(Speeches2017.date > start).filter(Speeches2017.date < end).order_by(Speeches2017.date).all())
 
     if not start > 1545606000 or end < 1514847600:
         speeches.extend(Speeches2018.query.filter(Speeches2018.pdf.contains(
-            keyword)).filter(Speeches2018.date > start).filter(Speeches2018.date < end).order_by(Speeches2018.date).limit(500).all())
+            keyword)).filter(Speeches2018.date > start).filter(Speeches2018.date < end).order_by(Speeches2018.date).all())
 
     if not start > 1577401200 or end < 1546815600:
         speeches.extend(Speeches2019.query.filter(Speeches2019.pdf.contains(
-            keyword)).filter(Speeches2019.date > start).filter(Speeches2019.date < end).order_by(Speeches2019.date).limit(500).all())
+            keyword)).filter(Speeches2019.date > start).filter(Speeches2019.date < end).order_by(Speeches2019.date).all())
 
     if not start > 1609282800 or end < 1578265200:
         speeches.extend(Speeches2020.query.filter(Speeches2020.pdf.contains(
-            keyword)).filter(Speeches2020.date > start).filter(Speeches2020.date < end).order_by(Speeches2020.date).limit(500).all())
+            keyword)).filter(Speeches2020.date > start).filter(Speeches2020.date < end).order_by(Speeches2020.date).all())
 
     if not start > 1626904800 or end < 1610060400:
         speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
-            keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).order_by(Speeches2021.date).limit(500).all())
+            keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).order_by(Speeches2021.date).all())
 
-
+    if len(speeches) > 200:
+        speeches = random.sample(speeches, 200)
+        speeches.sort(key=lambda speech: speech.date)
+        speeches.reverse()
+        
     return speeches
 
 def query_database_area(keyword, area, start, end):
@@ -367,53 +372,55 @@ def query_database_area(keyword, area, start, end):
 
     if not start > 1293750000 or end < 1263337200:
         speeches.extend(Speeches2010.query.filter(Speeches2010.pdf.contains(
-            keyword)).filter(Speeches2010.date > start).filter(Speeches2010.date < end).filter(Speeches2010.country == area).order_by(Speeches2010.date).limit(500).all())
+            keyword)).filter(Speeches2010.date > start).filter(Speeches2010.date < end).filter(Speeches2010.country == area).order_by(Speeches2010.date).all())
 
     if not start > 1325199600 or end < 1294095600:
         speeches.extend(Speeches2011.query.filter(Speeches2011.pdf.contains(
-            keyword)).filter(Speeches2011.date > start).filter(Speeches2011.date < end).filter(Speeches2011.country == area).order_by(Speeches2011.date).limit(500).all())
+            keyword)).filter(Speeches2011.date > start).filter(Speeches2011.date < end).filter(Speeches2011.country == area).order_by(Speeches2011.date).all())
 
     if not start > 1355958000 or end < 1325458800:
         speeches.extend(Speeches2012.query.filter(Speeches2012.pdf.contains(
-            keyword)).filter(Speeches2012.date > start).filter(Speeches2012.date < end).filter(Speeches2012.country == area).order_by(Speeches2012.date).limit(500).all())
+            keyword)).filter(Speeches2012.date > start).filter(Speeches2012.date < end).filter(Speeches2012.country == area).order_by(Speeches2012.date).all())
 
     if not start > 1388444400 or end < 1357167600:
         speeches.extend(Speeches2013.query.filter(Speeches2013.pdf.contains(
-            keyword)).filter(Speeches2013.date > start).filter(Speeches2013.date < end).filter(Speeches2013.country == area).order_by(Speeches2013.date).limit(500).all())
+            keyword)).filter(Speeches2013.date > start).filter(Speeches2013.date < end).filter(Speeches2013.country == area).order_by(Speeches2013.date).all())
 
     if not start > 1418598000 or end < 1388962800:
         speeches.extend(Speeches2014.query.filter(Speeches2014.pdf.contains(
-            keyword)).filter(Speeches2014.date > start).filter(Speeches2014.date < end).filter(Speeches2014.country == area).order_by(Speeches2014.date).limit(500).all())
+            keyword)).filter(Speeches2014.date > start).filter(Speeches2014.date < end).filter(Speeches2014.country == area).order_by(Speeches2014.date).all())
 
     if not start > 1451430000 or end < 1420758000:
         speeches.extend(Speeches2015.query.filter(Speeches2015.pdf.contains(
-            keyword)).filter(Speeches2015.date > start).filter(Speeches2015.date < end).filter(Speeches2015.country == area).order_by(Speeches2015.date).limit(500).all())
+            keyword)).filter(Speeches2015.date > start).filter(Speeches2015.date < end).filter(Speeches2015.country == area).order_by(Speeches2015.date).all())
 
     if not start > 1475186400 or end < 1452466800:
         speeches.extend(Speeches2016.query.filter(Speeches2016.pdf.contains(
-            keyword)).filter(Speeches2016.date > start).filter(Speeches2016.date < end).filter(Speeches2016.country == area).order_by(Speeches2016.date).limit(500).all())
+            keyword)).filter(Speeches2016.date > start).filter(Speeches2016.date < end).filter(Speeches2016.country == area).order_by(Speeches2016.date).all())
 
     if not start > 1514502000 or end < 1483657200:
         speeches.extend(Speeches2017.query.filter(Speeches2017.pdf.contains(
-            keyword)).filter(Speeches2017.date > start).filter(Speeches2017.date < end).filter(Speeches2017.country == area).order_by(Speeches2017.date).limit(500).all())
+            keyword)).filter(Speeches2017.date > start).filter(Speeches2017.date < end).filter(Speeches2017.country == area).order_by(Speeches2017.date).all())
 
     if not start > 1545606000 or end < 1514847600:
         speeches.extend(Speeches2018.query.filter(Speeches2018.pdf.contains(
-            keyword)).filter(Speeches2018.date > start).filter(Speeches2018.date < end).filter(Speeches2018.country == area).order_by(Speeches2018.date).limit(500).all())
+            keyword)).filter(Speeches2018.date > start).filter(Speeches2018.date < end).filter(Speeches2018.country == area).order_by(Speeches2018.date).all())
 
     if not start > 1577401200 or end < 1546815600:
         speeches.extend(Speeches2019.query.filter(Speeches2019.pdf.contains(
-            keyword)).filter(Speeches2019.date > start).filter(Speeches2019.date < end).filter(Speeches2019.country == area).order_by(Speeches2019.date).limit(500).all())
+            keyword)).filter(Speeches2019.date > start).filter(Speeches2019.date < end).filter(Speeches2019.country == area).order_by(Speeches2019.date).all())
 
     if not start > 1609282800 or end < 1578265200:
         speeches.extend(Speeches2020.query.filter(Speeches2020.pdf.contains(
-            keyword)).filter(Speeches2020.date > start).filter(Speeches2020.date < end).filter(Speeches2020.country == area).order_by(Speeches2020.date).limit(500).all())
+            keyword)).filter(Speeches2020.date > start).filter(Speeches2020.date < end).filter(Speeches2020.country == area).order_by(Speeches2020.date).all())
 
     if not start > 1626904800 or end < 1610060400:
         speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
-            keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).filter(Speeches2021.country == area).order_by(Speeches2021.date).limit(500).all())
+            keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).filter(Speeches2021.country == area).order_by(Speeches2021.date).all())
 
-
+    if len(speeches) > 200:
+        speeches = random.sample(speeches, 200)
+        speeches.sort(key=lambda speech: speech.date)
 
     return speeches
 
@@ -489,7 +496,7 @@ def index():
         img_paths = [new_wordcloud_path,
                      new_wordcloud_path, new_wordcloud_path]
 
-        return render_template('index.html', speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies=frequencies)
+        return render_template('index.html', speeches_count=len(speeches), speeches=speeches_list, top_countries=countries, img_paths=img_paths, frequencies=frequencies)
 
     else:
         speeches = query_database()
@@ -508,7 +515,6 @@ def topic_modeling(speeches, num_comps):
     LDA = LatentDirichletAllocation(n_components=num_comps)
     LDA.fit(dtm)
 
-
     # Get the 15 Top words for each Topic
     topics = []
     for i,topic in enumerate(LDA.components_):
@@ -524,7 +530,7 @@ def topic_modeling(speeches, num_comps):
     
     topic_percentages = [0 for topic in enumerate(LDA.components_)]
     index = 0
-    for speech in speeches:       
+    for speech in speeches:
         
         # get the x value
         x.append(datetime.fromtimestamp(speech.date))
@@ -547,7 +553,13 @@ def topic_modeling(speeches, num_comps):
     # Sort the topics by their percentages
     topwords_and_percentages = []
     for index in range(len(topics)):
-        topwords_and_percentages.append([topic_percentages[index], list(reversed(topics[index]))])
+        percentage = topic_percentages[index]
+        word_string = " ".join(list(reversed(topics[index])))
+        # topwords_and_percentages.append([topic_percentages[index], list(reversed(topics[index]))])
+        topwords_and_percentages.append([percentage, word_string, index])
+
+    # Join word list to one string
+
 
     topwords_and_percentages.sort()
     topwords_and_percentages.reverse()
@@ -555,7 +567,8 @@ def topic_modeling(speeches, num_comps):
     # Create the plot
     delete_old_tm_results()
     plt.clf()
-    plt.scatter(x, y, c=colors, alpha=0.5)
+    plt.style.use("dark_background")
+    plt.scatter(x, y, c=colors, alpha=0.9)
 
     random_path = random_with_N_digits(5)
     new_tm_results_path = "static/images/tm_results" + str(random_path) + ".png"
@@ -575,20 +588,18 @@ def topicmodeling():
             number_topics = int(request.form['numbertopics'])
         except:
             number_topics = 3
-        #area = request.form['area']        
-        #startdate = request.form['startdate']
-        #enddate = request.form['enddate']
+        area = request.form['area']        
+        startdate = request.form['startdate']
+        enddate = request.form['enddate']
 
-        speeches = query_database()
+        speeches = query_database(area=area, start=startdate, end=enddate)
 
         #topics = [['eins', 'zwei', 'drei'], ['un', 'dos', 'tres']]
         results = topic_modeling(speeches, num_comps=number_topics)
         topics = results[0]
-        topic_percentages = []
         path = results[1]
 
         return render_template('topicmodeling.html', speeches_count=len(speeches), topics=topics, path=path)
-
 
     else:
         return render_template('topicmodeling.html')
