@@ -26,6 +26,9 @@ nlp = spacy.load('en_core_web_sm')
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 
+kws_speeches_max = 200
+lda_speeches_max = 50
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bis_cb_speches_db_20_21.db'
@@ -384,8 +387,8 @@ def query_database_all_area(keyword, area, start, end):
         speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
             keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).order_by(Speeches2021.date).all())
 
-    if len(speeches) > 200:
-        speeches = random.sample(speeches, 200)
+    if len(speeches) > kws_speeches_max:
+        speeches = random.sample(speeches, kws_speeches_max)
 
     speeches.sort(key=lambda speech: speech.date)
     speeches.reverse()
@@ -443,8 +446,8 @@ def query_database_area(keyword, area, start, end):
         speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
             keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).filter(Speeches2021.country == area).order_by(Speeches2021.date).all())
 
-    if len(speeches) > 200:
-        speeches = random.sample(speeches, 200)
+    if len(speeches) > kws_speeches_max:
+        speeches = random.sample(speeches, kws_speeches_max)
         
     speeches.sort(key=lambda speech: speech.date)
     speeches.reverse()
@@ -538,8 +541,8 @@ def delete_old_tm_results():
         os.remove(path)
 
 def topic_modeling(speeches, num_comps):
-    if len(speeches) > 50:
-        speeches = random.sample(speeches, 50)        
+    if len(speeches) > lda_speeches_max:
+        speeches = random.sample(speeches, lda_speeches_max)        
     # Setting up the Vectorizer
     cv = CountVectorizer(max_df=0.8, min_df=0.01, stop_words='english')
     dtm = cv.fit_transform([speech.pdf for speech in speeches])
