@@ -360,8 +360,8 @@ def query_database_all_area(keyword, area, start, end):
         speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
             keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).order_by(Speeches2021.date).all())
 
-    if len(speeches) > 10:
-        speeches = random.sample(speeches, 10)
+    if len(speeches) > 100:
+        speeches = random.sample(speeches, 100)
         speeches.sort(key=lambda speech: speech.date)
         speeches.reverse()
 
@@ -418,8 +418,8 @@ def query_database_area(keyword, area, start, end):
         speeches.extend(Speeches2021.query.filter(Speeches2021.pdf.contains(
             keyword)).filter(Speeches2021.date > start).filter(Speeches2021.date < end).filter(Speeches2021.country == area).order_by(Speeches2021.date).all())
 
-    if len(speeches) > 10:
-        speeches = random.sample(speeches, 10)
+    if len(speeches) > 100:
+        speeches = random.sample(speeches, 100)
         speeches.sort(key=lambda speech: speech.date)
 
     return speeches
